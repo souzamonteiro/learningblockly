@@ -88,7 +88,7 @@ Blockly.Portugol['controls_for'] = function(block) {
       Blockly.isNumber(increment)) {
     // All arguments are simple numbers.
     var up = Number(argument0) <= Number(argument1);
-    code = 'pata (' + variable0 + ' = ' + argument0 + '; ' +
+    code = 'para (' + variable0 + ' = ' + argument0 + '; ' +
         variable0 + (up ? ' <= ' : ' >= ') + argument1 + '; ' +
         variable0;
     var step = Math.abs(Number(increment));
