@@ -306,7 +306,7 @@ Blockly.Portugol['text_print'] = function(block) {
   // Print statement.
   var msg = Blockly.Portugol.valueToCode(block, 'TEXT',
       Blockly.Portugol.ORDER_NONE) || '\'\'';
-  return 'alerta(' + msg + ');\n';
+  return 'escreva(' + msg + ');\n';
 };
 
 Blockly.Portugol['text_prompt_ext'] = function(block) {
@@ -319,7 +319,7 @@ Blockly.Portugol['text_prompt_ext'] = function(block) {
     var msg = Blockly.Portugol.valueToCode(block, 'TEXT',
         Blockly.Portugol.ORDER_NONE) || '\'\'';
   }
-  var code = 'entrada(' + msg + ')';
+  var code = 'leia(' + msg + ')';
   var toNumber = block.getFieldValue('TYPE') == 'NUMBER';
   if (toNumber) {
     code = 'Numero(' + code + ')';
