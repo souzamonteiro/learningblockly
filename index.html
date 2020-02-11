@@ -7,8 +7,14 @@
     <meta name="google" value="notranslate">
     <script src="js/blockly_compressed.js"></script>
     <script src="js/blocks_compressed.js"></script>
+    
+    <script src="js/dart_compressed.js"></script>
     <script src="js/javascript_compressed.js"></script>
+    <script src="js/lua_compressed.js"></script>
+    <script src="js/php_compressed.js"></script>
     <script src="js/portugol_compressed.js"></script>
+    <script src="js/python_compressed.js"></script>
+    
     <script src="js/google-code-prettify/run_prettify.js"></script>
     <script src="js/acorn_interpreter.js"></script>
     <script src="js/msg/pt-br.js"></script>
@@ -26,11 +32,26 @@
     </div>
     
     <div id="blocklyDiv" style="height: 480px; width: 100%;"></div>
-    <span style="font-family: 'Helvetica'; font-size: 1;">Portugol:</span>
-    <div style="overflow-y: scroll;"><pre class="prettyprint" id="portugolCode"></pre></div>
-    <span style="font-family: 'Helvetica'; font-size: 1;">JavaScript:</span>
-    <div style="overflow-y: scroll;"><pre class="prettyprint" id="jsCode"></pre></div>
-    <small style="font-family: 'Helvetica';">Copyright &copy; <a href="http://www.souzamonteiro.com" target="_blank">Roberto Luiz Souza Monteiro</a> (<a href="mailto:roberto@souzamonteiro.com">roberto@souzamonteiro.com</a></a>)</small>
+    <select id="lang1" onchange="updateCode();">
+      <option value="dart">Dart</option>
+      <option value="javascript">JavaScript</option>
+      <option value="lua">Lua</option>
+      <option value="php">PHP</option>
+      <option value="portugol">Portugol</option>
+      <option value="python">Python</option>
+    </select>
+    <div style="overflow-y: scroll;"><pre class="prettyprint" id="lang1code"></pre></div>
+    <select id="lang2" onchange="updateCode();">
+      <option value="dart">Dart</option>
+      <option value="javascript">JavaScript</option>
+      <option value="lua">Lua</option>
+      <option value="php">PHP</option>
+      <option value="portugol">Portugol</option>
+      <option value="python">Python</option>
+    </select>
+    <div style="overflow-y: scroll;"><pre class="prettyprint" id="lang2code"></pre></div>
+    
+    <small style="font-family: 'Helvetica';">Copyright &copy; 2020 <a href="http://www.souzamonteiro.com" target="_blank">Roberto Luiz Souza Monteiro</a> (<a href="mailto:roberto@souzamonteiro.com">roberto@souzamonteiro.com</a></a>)</small>
     
     <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
       <category name="%{BKY_CATLOGIC}" colour="%{BKY_LOGIC_HUE}">
@@ -350,14 +371,53 @@
         trashcan: true,  media: 'static/media/'});
       
       // Generate code.
-      function myUpdateFunction(event) {
-        var jsCode = Blockly.JavaScript.workspaceToCode(workspace);
-        document.getElementById('jsCode').innerHTML = PR.prettyPrintOne(jsCode);
-
-        var portugolCode = Blockly.Portugol.workspaceToCode(workspace);
-        document.getElementById('portugolCode').innerHTML = PR.prettyPrintOne(portugolCode);
+      function updateCode(event) {
+        lang1 = document.getElementById('lang1');
+        lang1code = document.getElementById('lang1code');
+        lang2 = document.getElementById('lang2');
+        lang2code = document.getElementById('lang2code');
+        
+        if (lang1.value == "dart") {
+          var code1 = Blockly.Dart.workspaceToCode(workspace);
+          lang1code.innerHTML = PR.prettyPrintOne(code1, 'dart');
+        } else if (lang1.value == "javascript") {
+          var code1 = Blockly.JavaScript.workspaceToCode(workspace);
+          lang1code.innerHTML = PR.prettyPrintOne(code1, 'javascript');
+        } else if (lang1.value == "lua") {
+          var code1 = Blockly.Lua.workspaceToCode(workspace);
+          lang1code.innerHTML = PR.prettyPrintOne(code1, 'lua');
+        } else if (lang1.value == "php") {
+          var code1 = Blockly.PHP.workspaceToCode(workspace);
+          lang1code.innerHTML = PR.prettyPrintOne(code1, 'php');
+        } else if (lang1.value == "portugol") {
+          var code1 = Blockly.Portugol.workspaceToCode(workspace);
+          lang1code.innerHTML = PR.prettyPrintOne(code1, 'javascript');
+        } else if (lang1.value == "python") {
+          var code1 = Blockly.Python.workspaceToCode(workspace);
+          lang1code.innerHTML = PR.prettyPrintOne(code1, 'python');
+        }
+        
+        if (lang2.value == "dart") {
+          var code2 = Blockly.Dart.workspaceToCode(workspace);
+          lang2code.innerHTML = PR.prettyPrintOne(code2, 'dart');
+        } else if (lang2.value == "javascript") {
+          var code2 = Blockly.JavaScript.workspaceToCode(workspace);
+          lang2code.innerHTML = PR.prettyPrintOne(code2, 'javascript');
+        } else if (lang2.value == "lua") {
+          var code2 = Blockly.Lua.workspaceToCode(workspace);
+          lang2code.innerHTML = PR.prettyPrintOne(code2, 'lua');
+        } else if (lang2.value == "php") {
+          var code2 = Blockly.PHP.workspaceToCode(workspace);
+          lang2code.innerHTML = PR.prettyPrintOne(code2, 'php');
+        } else if (lang2.value == "portugol") {
+          var code2 = Blockly.Portugol.workspaceToCode(workspace);
+          lang2code.innerHTML = PR.prettyPrintOne(code2, 'javascript');
+        } else if (lang2.value == "python") {
+          var code2 = Blockly.Python.workspaceToCode(workspace);
+          lang2code.innerHTML = PR.prettyPrintOne(code2, 'python');
+        }
       }
-      workspace.addChangeListener(myUpdateFunction);
+      workspace.addChangeListener(updateCode);
 
       // Create new document, clear document, download document, upload document and run document.
       function newWorkspace() {
@@ -436,6 +496,8 @@
           var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
           
           localStorage.setItem("blockly.xml", xmlText);
+          localStorage.setItem("lang1", document.getElementById('lang1').value);
+          localStorage.setItem("lang2", document.getElementById('lang2').value);
       }
       function loadWorkspace() {
         try {
@@ -446,6 +508,14 @@
               Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xmlDom);
           }
         } catch {
+        }
+
+        try {
+          document.getElementById('lang1').value = localStorage.getItem("lang1");
+          document.getElementById('lang2').value = localStorage.getItem("lang2");
+        } catch {
+          document.getElementById('lang1').value = "javascript";
+          document.getElementById('lang2').value = "javascript";
         }
       }
       // Save the workspace on unload.
