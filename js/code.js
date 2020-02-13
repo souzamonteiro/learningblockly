@@ -105,10 +105,11 @@ function clearWorkspace() {
         Blockly.mainWorkspace.clear();
     }
 }
+
 function downloadXml() {
     var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    var uri = 'data:text/xml;charset=utf-8,' + xmlText;
+    var uri = 'data:text/xml;base64;charset=utf-8,' + btoa(xmlText);
     var downloadLink = document.createElement("a");
 
     downloadLink.href = uri;
@@ -134,6 +135,7 @@ function uploadXml() {
     }
     input.click();
 }
+
 function downloadCode1() {
     var lang = document.getElementById('lang1').value;
     if (lang == "dart") {
@@ -153,7 +155,7 @@ function downloadCode1() {
     }
 
     var code = document.getElementById('lang1code').innerText;
-    var uri = 'data:text/javascript;charset=utf-8,' + code;
+    var uri = 'data:text/plain;base64;charset=utf-8,' + btoa(code);
     var downloadLink = document.createElement("a");
     
     downloadLink.href = uri;
@@ -181,7 +183,7 @@ function downloadCode2() {
     }
 
     var code = document.getElementById('lang2code').innerText;
-    var uri = 'data:text/javascript;charset=utf-8,' + code;
+    var uri = 'data:text/plain;base64;charset=utf-8,' + btoa(code);
     var downloadLink = document.createElement("a");
 
     downloadLink.href = uri;
@@ -190,6 +192,7 @@ function downloadCode2() {
     downloadLink.click();
     document.body.removeChild(downloadLink);
 }
+
 function initInterpreter(interpreter, scope) {
     var wrapper = function(text) {
         return alert(arguments.length ? text : '');
@@ -201,7 +204,6 @@ function initInterpreter(interpreter, scope) {
     };
     interpreter.setProperty(scope, 'prompt', interpreter.createNativeFunction(wrapper));                                
 }
-
 function runJs() {
     var code = Blockly.JavaScript.workspaceToCode(workspace);
     var interp = new Interpreter(code, initInterpreter);
