@@ -109,7 +109,7 @@ function clearWorkspace() {
 function downloadXml() {
     var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    var uri = 'data:text/xml;base64;charset=utf-8,' + btoa(xmlText);
+    var uri = 'data:text/xml;charset=utf-8;base64,' + btoa(xmlText);
     var downloadLink = document.createElement("a");
 
     downloadLink.href = uri;
@@ -155,7 +155,7 @@ function downloadCode1() {
     }
 
     var code = document.getElementById('lang1code').innerText;
-    var uri = 'data:text/plain;base64;charset=utf-8,' + btoa(code);
+    var uri = 'data:text/plain;charset=utf-8;base64,' + btoa(code);
     var downloadLink = document.createElement("a");
     
     downloadLink.href = uri;
@@ -183,7 +183,7 @@ function downloadCode2() {
     }
 
     var code = document.getElementById('lang2code').innerText;
-    var uri = 'data:text/plain;base64;charset=utf-8,' + btoa(code);
+    var uri = 'data:text/plain;charset=utf-8;base64,' + btoa(code);
     var downloadLink = document.createElement("a");
 
     downloadLink.href = uri;
