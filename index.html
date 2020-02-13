@@ -18,6 +18,7 @@
     <script src="js/python_compressed.js"></script>
     
     <script src="js/google-code-prettify/run_prettify.js"></script>
+    <script src="js/google-code-prettify/lang-portugol.js"></script>
     <script src="js/acorn_interpreter.js"></script>
     <script src="js/msg/pt-br.js"></script>
     <script src="msg/js/pt-br.js"></script>
@@ -27,7 +28,6 @@
       <img src="images/plus-square.png" onclick="newWorkspace();">
       <img src="images/upload.png" onclick="uploadXml();">
       <img src="images/download.png" onclick="downloadXml();">
-      <img src="images/save.png" onclick="downloadJs();">
       <img src="images/play.png" onclick="runJs()">
       <img src="images/x-square.png" style="float: right;" onclick="clearWorkspace();">
     </div>
@@ -40,7 +40,9 @@
       <option value="php">PHP</option>
       <option value="portugol">Portugol</option>
       <option value="python">Python</option>
+      <option value="none"></option>
     </select>
+    <img src="images/save.png" style="vertical-align: middle;" onclick="downloadCode1();">
     <div style="overflow-y: scroll;"><pre class="prettyprint" id="lang1code"></pre></div>
     <select id="lang2" onchange="updateCode();">
       <option value="dart">Dart</option>
@@ -49,7 +51,9 @@
       <option value="php">PHP</option>
       <option value="portugol">Portugol</option>
       <option value="python">Python</option>
+      <option value="none"></option>
     </select>
+    <img src="images/save.png" style="vertical-align: middle;" onclick="downloadCode2();">
     <div style="overflow-y: scroll;"><pre class="prettyprint" id="lang2code"></pre></div>
     
     <small style="font-family: 'Helvetica';">Copyright &copy; 2020 <a href="http://www.souzamonteiro.com" target="_blank">Roberto Luiz Souza Monteiro</a> (<a href="mailto:roberto@souzamonteiro.com">roberto@souzamonteiro.com</a></a>)</small>

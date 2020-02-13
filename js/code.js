@@ -41,11 +41,11 @@ var workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('
     trashcan: true,  media: 'static/media/'});
 
 // Generate code.
-    function updateCode(event) {
-    lang1 = document.getElementById('lang1');
-    lang1code = document.getElementById('lang1code');
-    lang2 = document.getElementById('lang2');
-    lang2code = document.getElementById('lang2code');
+function updateCode(event) {
+    var lang1 = document.getElementById('lang1');
+    var lang1code = document.getElementById('lang1code');
+    var lang2 = document.getElementById('lang2');
+    var lang2code = document.getElementById('lang2code');
 
     if (lang1.value == "dart") {
         var code1 = Blockly.Dart.workspaceToCode(workspace);
@@ -65,6 +65,8 @@ var workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('
     } else if (lang1.value == "python") {
         var code1 = Blockly.Python.workspaceToCode(workspace);
         lang1code.innerHTML = PR.prettyPrintOne(code1, 'python');
+    } else {
+        lang1code.innerHTML = ""
     }
 
     if (lang2.value == "dart") {
@@ -85,6 +87,8 @@ var workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('
     } else if (lang2.value == "python") {
         var code2 = Blockly.Python.workspaceToCode(workspace);
         lang2code.innerHTML = PR.prettyPrintOne(code2, 'python');
+    } else {
+        lang2code.innerHTML = ""
     }
 }
 workspace.addChangeListener(updateCode);
@@ -130,13 +134,58 @@ function uploadXml() {
     }
     input.click();
 }
-function downloadJs() {
-    var code = document.getElementById('jsCode').innerText;
+function downloadCode1() {
+    var lang = document.getElementById('lang1').value;
+    if (lang == "dart") {
+        var ext = "dart"
+    } else if (lang == "javascript") {
+        var ext = "js"
+    } else if (lang == "lua") {
+        var ext = "lua"
+    } else if (lang == "php") {
+        var ext = "php"
+    } else if (lang == "portugol") {
+        var ext = "por"
+    } else if (lang == "python") {
+        var ext = "py"
+    } else {
+        var ext = "txt"
+    }
+
+    var code = document.getElementById('lang1code').innerText;
+    var uri = 'data:text/javascript;charset=utf-8,' + code;
+    var downloadLink = document.createElement("a");
+    
+    downloadLink.href = uri;
+    downloadLink.download = "untitled." + ext;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}
+function downloadCode2() {
+    var lang = document.getElementById('lang2').value;
+    if (lang == "dart") {
+        var ext = "dart"
+    } else if (lang == "javascript") {
+        var ext = "js"
+    } else if (lang == "lua") {
+        var ext = "lua"
+    } else if (lang == "php") {
+        var ext = "php"
+    } else if (lang == "portugol") {
+        var ext = "por"
+    } else if (lang == "python") {
+        var ext = "py"
+    } else {
+        var ext = "txt"
+    }
+
+    var code = document.getElementById('lang2code').innerText;
     var uri = 'data:text/javascript;charset=utf-8,' + code;
     var downloadLink = document.createElement("a");
 
     downloadLink.href = uri;
-    downloadLink.download = "untitled.js";
+    downloadLink.download = "untitled." + ext;
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
