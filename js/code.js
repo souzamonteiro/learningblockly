@@ -71,7 +71,7 @@ function updateCode(event) {
         lang1code.innerHTML = PR.prettyPrintOne(code1, 'php');
     } else if (lang1.value == "portugol") {
         var code1 = Blockly.Portugol.workspaceToCode(workspace);
-        lang1code.innerHTML = PR.prettyPrintOne(code1, 'javascript');
+        lang1code.innerHTML = PR.prettyPrintOne(code1, 'portugol');
     } else if (lang1.value == "python") {
         var code1 = Blockly.Python.workspaceToCode(workspace);
         lang1code.innerHTML = PR.prettyPrintOne(code1, 'python');
@@ -93,7 +93,7 @@ function updateCode(event) {
         lang2code.innerHTML = PR.prettyPrintOne(code2, 'php');
     } else if (lang2.value == "portugol") {
         var code2 = Blockly.Portugol.workspaceToCode(workspace);
-        lang2code.innerHTML = PR.prettyPrintOne(code2, 'javascript');
+        lang2code.innerHTML = PR.prettyPrintOne(code2, 'portugol');
     } else if (lang2.value == "python") {
         var code2 = Blockly.Python.workspaceToCode(workspace);
         lang2code.innerHTML = PR.prettyPrintOne(code2, 'python');
