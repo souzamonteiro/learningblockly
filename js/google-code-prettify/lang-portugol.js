@@ -43,17 +43,13 @@ PR['registerLangHandler'](
          [PR['PR_COMMENT'],     /^#[^\r\n]*/, null, '#'],
          // Whitespace
          [PR['PR_PLAIN'],       /^[\t\n\r \xA0]+/, null, '\t\n\r \xA0'],
-         // A double quoted, possibly multi-line, string.
-         [PR['PR_STRING'],      /^\"(?:[^\"\\]|\\[\s\S])*(?:\"|$)/, null, '"']
+         // A double or single quoted, possibly multi-line, string.
+         [PR['PR_STRING'],      /^(?:\"(?:[^\"\\]|\\[\s\S])*(?:\"|$)|\'(?:[^\'\\]|\\[\s\S])*(?:\'|$))/, null, '"\'']
         ],
         [
+         [PR['PR_STRING'],      /^\[(=*)\[[\s\S]*?(?:\]\1\]|$)/],
          [PR['PR_KEYWORD'],     /^(?:var|se|senao|senaose|funcao|returne|enquanto|para|paracada|continue|pare|saia|erro)\b/, null],
-         [PR['PR_LITERAL'],
-          /^[+\-]?(?:[0#]x[0-9a-f]+|\d+\/\d+|(?:\.\d+|\d+(?:\.\d*)?)(?:[ed][+\-]?\d+)?)/i],
-         // A single quote possibly followed by a word that optionally ends with
-         // = ! or ?.
-         [PR['PR_LITERAL'],
-          /^\'(?:-*(?:\w|\\[\x21-\x7e])(?:[\w-]*|\\[\x21-\x7e])[=!?]?)?/],
+         [PR['PR_LITERAL'],     /^[+-]?(?:0x[\da-f]+|(?:(?:\.\d+|\d+(?:\.\d*)?)(?:e[+\-]?\d+)?))/i],
          // A word that optionally ends with = ! or ?.
          [PR['PR_PLAIN'],
           /^-*(?:[a-z_]|\\[\x21-\x7e])(?:[\w-]*|\\[\x21-\x7e])[=!?]?/i],
