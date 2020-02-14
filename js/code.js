@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2012 Google LLC
+ * Copyright 2020 Roberto Luiz Souza Monteiro
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,16 @@ var workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('
     zoom: {controls: true, wheel: true, startScale: 1.0, maxScale: 3, minScale: 0.3, scaleSpeed: 1.2},
     trashcan: true,  media: 'static/media/'});
 
+// Convert Unicode caracters to Latin1.
+function base64EncodeUnicode(str) {
+    // First we escape the string using encodeURIComponent to get the UTF-8 encoding of the characters, 
+    // then we convert the percent encodings into raw bytes, and finally feed it to btoa() function.
+    utf8Bytes = encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+            return String.fromCharCode('0x' + p1);
+    });
+
+    return btoa(utf8Bytes);
+}
 // Generate code.
 function updateCode(event) {
     var lang1 = document.getElementById('lang1');
@@ -109,7 +119,7 @@ function clearWorkspace() {
 function downloadXml() {
     var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    var uri = 'data:text/xml;charset=utf-8;base64,' + btoa(xmlText);
+    var uri = 'data:text/xml;charset=utf-8;base64,' + base64EncodeUnicode(xmlText);
     var downloadLink = document.createElement("a");
 
     downloadLink.href = uri;
@@ -155,7 +165,7 @@ function downloadCode1() {
     }
 
     var code = document.getElementById('lang1code').innerText;
-    var uri = 'data:text/plain;charset=utf-8;base64,' + btoa(code);
+    var uri = 'data:text/plain;charset=utf-8;base64,' + base64EncodeUnicode(code);
     var downloadLink = document.createElement("a");
     
     downloadLink.href = uri;
@@ -183,7 +193,7 @@ function downloadCode2() {
     }
 
     var code = document.getElementById('lang2code').innerText;
-    var uri = 'data:text/plain;charset=utf-8;base64,' + btoa(code);
+    var uri = 'data:text/plain;charset=utf-8;base64,' + base64EncodeUnicode(code);
     var downloadLink = document.createElement("a");
 
     downloadLink.href = uri;
