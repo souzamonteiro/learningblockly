@@ -261,3 +261,8 @@ window.addEventListener("unload", function(event) {
     saveWorkspace()
 });
 loadWorkspace();
+
+function reloadApp() {
+    location.reload();
+    return false;
+}
