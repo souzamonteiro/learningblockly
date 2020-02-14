@@ -226,6 +226,7 @@ function saveWorkspace() {
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
 
     localStorage.setItem("blockly.xml", xmlText);
+    localStorage.setItem("language", document.getElementById('language').value);
     localStorage.setItem("lang1", document.getElementById('lang1').value);
     localStorage.setItem("lang2", document.getElementById('lang2').value);
 }
@@ -241,12 +242,18 @@ function loadWorkspace() {
     }
 
     try {
+        document.getElementById('language').value = localStorage.getItem("language");
         document.getElementById('lang1').value = localStorage.getItem("lang1");
         document.getElementById('lang2').value = localStorage.getItem("lang2");
     } catch {
+        document.getElementById('language').value = "en";
         document.getElementById('lang1').value = "javascript";
         document.getElementById('lang2').value = "javascript";
     }
+    
+    // Load language strings.
+    document.write('<script src="js/msg/' + localStorage.getItem("language") + '.js"></script>\n');
+    document.write('<script src="msg/js/' + localStorage.getItem("language") + '.js"></script>\n');
 }
 
 // Save the workspace on unload.
