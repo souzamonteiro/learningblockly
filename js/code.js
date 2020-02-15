@@ -251,18 +251,18 @@ function loadWorkspace() {
         document.getElementById('lang2').value = "javascript";
     }
     
-    // Load language strings.
-    document.write('<script src="js/msg/' + localStorage.getItem("language") + '.js"></script>\n');
-    document.write('<script src="msg/js/' + localStorage.getItem("language") + '.js"></script>\n');
+    document.write('<script src="msg/js/' + document.getElementById('language').value + '.js"></script>\n');    
 }
 
 // Save the workspace on unload.
 window.addEventListener("unload", function(event) {
     saveWorkspace()
 });
+
 loadWorkspace();
 
 function reloadApp() {
-    location.reload();
+    window.location.reload();
+
     return false;
 }
