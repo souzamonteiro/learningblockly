@@ -15,23 +15,14 @@
  * limitations under the License.
  */
 
-// The toolbox XML specifies each category name using Blockly's messaging
-// format (eg. `<category name="%{BKY_CATLOGIC}">`).
-// These message keys need to be defined in `Blockly.Msg` in order to
-// be decoded by the library. Therefore, we'll use the `MSG` dictionary that's
-// been defined for each language to import each category name message
-// into `Blockly.Msg`.
-// TODO: Clean up the message files so this is done explicitly instead of
-// through this for-loop.
-for (var messageKey in MSG) {
-    if (messageKey.indexOf('cat') == 0) {
-        Blockly.Msg[messageKey.toUpperCase()] = MSG[messageKey];
-    }
+// Load de message catalog.
+for (var messageKey in Lang.msg) {
+        Blockly.Msg[messageKey] = Lang.msg[messageKey];
 }
 
 // Construct the toolbox XML, replacing translated variable names.
 var toolboxText = document.getElementById('toolbox').outerHTML;
-toolboxText = toolboxText.replace(/(^|[^%]){(\w+)}/g, function(m, p1, p2) {return p1 + MSG[p2];});
+toolboxText = toolboxText.replace(/(^|[^%]){(\w+)}/g, function(m, p1, p2) {return p1 + Lang.msg[p2];});
 var toolboxXml = Blockly.Xml.textToDom(toolboxText);
 
 // Create the workspace.
@@ -256,7 +247,7 @@ function loadWorkspace() {
         document.getElementById('lang2').value = "javascript";
     }
     
-    document.write('<script src="msg/js/' + document.getElementById('language').value + '.js"></script>\n');    
+    document.write('<script src="msg/js/' + document.getElementById('language').value + '.js"></script>\n');
 }
 
 // Save the workspace on unload.
