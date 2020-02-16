@@ -1,6 +1,6 @@
-try {
+if (localStorage.getItem("language") != undefined) {
     lang = localStorage.getItem("language");
-} catch {
+} else {
     lang = 'en';
 }
 

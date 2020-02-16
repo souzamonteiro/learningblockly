@@ -231,23 +231,28 @@ function saveWorkspace() {
     localStorage.setItem("lang2", document.getElementById('lang2').value);
 }
 function loadWorkspace() {
-    try {
+    if (localStorage.getItem("blockly.xml") != undefined) {
         var xmlText = localStorage.getItem("blockly.xml");
         if (xmlText) {
             Blockly.mainWorkspace.clear();
             var xmlDom = Blockly.Xml.textToDom(xmlText);
             Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xmlDom);
         }
-    } catch {
     }
 
-    try {
+    if (localStorage.getItem("language") != undefined) {
         document.getElementById('language').value = localStorage.getItem("language");
-        document.getElementById('lang1').value = localStorage.getItem("lang1");
-        document.getElementById('lang2').value = localStorage.getItem("lang2");
-    } catch {
+    } else {
         document.getElementById('language').value = "en";
+    }
+    if (localStorage.getItem("lang1") != undefined) {
+        document.getElementById('lang1').value = localStorage.getItem("lang1");
+    } else {
         document.getElementById('lang1').value = "javascript";
+    }
+    if (localStorage.getItem("lang2") != undefined) {
+        document.getElementById('lang2').value = localStorage.getItem("lang2");
+    } else {
         document.getElementById('lang2').value = "javascript";
     }
     
