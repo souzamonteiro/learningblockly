@@ -17,7 +17,7 @@
 
 // Load de message catalog.
 for (var messageKey in Lang.msg) {
-        Blockly.Msg[messageKey] = Lang.msg[messageKey];
+    Blockly.Msg[messageKey] = Lang.msg[messageKey];
 }
 
 // Construct the toolbox XML, replacing translated variable names.
@@ -57,6 +57,9 @@ function updateCode(event) {
     } else if (lang1.value == "lua") {
         var code1 = Blockly.Lua.workspaceToCode(workspace);
         lang1code.innerHTML = PR.prettyPrintOne(code1, 'lua');
+    } else if (lang1.value == "maiascript") {
+        var code1 = Blockly.MaiaScript.workspaceToCode(workspace);
+        lang1code.innerHTML = PR.prettyPrintOne(code1, 'maiascript');
     } else if (lang1.value == "php") {
         var code1 = Blockly.PHP.workspaceToCode(workspace);
         lang1code.innerHTML = PR.prettyPrintOne(code1, 'php');
@@ -79,6 +82,9 @@ function updateCode(event) {
     } else if (lang2.value == "lua") {
         var code2 = Blockly.Lua.workspaceToCode(workspace);
         lang2code.innerHTML = PR.prettyPrintOne(code2, 'lua');
+    } else if (lang2.value == "maiascript") {
+        var code2 = Blockly.MaiaScript.workspaceToCode(workspace);
+        lang2code.innerHTML = PR.prettyPrintOne(code2, 'maiascript');
     } else if (lang2.value == "php") {
         var code2 = Blockly.PHP.workspaceToCode(workspace);
         lang2code.innerHTML = PR.prettyPrintOne(code2, 'php');
@@ -108,8 +114,9 @@ function clearWorkspace() {
 }
 
 function downloadXml() {
-    var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+    var code = Blockly.MaiaScript.workspaceToCode(workspace);
+    lang1code.innerHTML = PR.prettyPrintOne(code, 'maiascript');
+    
     var uri = 'data:text/xml;charset=utf-8;base64,' + base64EncodeUnicode(xmlText);
     var downloadLink = document.createElement("a");
 
@@ -145,6 +152,8 @@ function downloadCode1() {
         var ext = "js"
     } else if (lang == "lua") {
         var ext = "lua"
+    } else if (lang == "maiascript") {
+        var ext = "maia"
     } else if (lang == "php") {
         var ext = "php"
     } else if (lang == "portugol") {
@@ -173,6 +182,8 @@ function downloadCode2() {
         var ext = "js"
     } else if (lang == "lua") {
         var ext = "lua"
+    } else if (lang == "maiascript") {
+        var ext = "maia"
     } else if (lang == "php") {
         var ext = "php"
     } else if (lang == "portugol") {
@@ -192,6 +203,13 @@ function downloadCode2() {
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
+}
+function exportMaia() {
+    var code = Blockly.MaiaScript.workspaceToCode(workspace);
+    localStorage.setItem('maiascript.maia', code);
+    localStorage.setItem('editorMode', 'maia');
+
+    var win = window.open("http://www.maiascript.com/maiastudio/index.html", "", "");
 }
 
 function initInterpreter(interpreter, scope) {
@@ -248,6 +266,12 @@ function loadWorkspace() {
     }
     
     document.write('<script src="msg/js/' + document.getElementById('language').value + '.js"></script>\n');
+}
+
+function aboutApp() {
+    var copyright = "Copyright (C) Roberto Luiz Souza Monteiro,\nRenata Souza Barreto,\nHernane Barrros de Borges Pereira.\n\nwww.maiascript.com";
+    
+    alert(copyright);
 }
 
 // Save the workspace on unload.

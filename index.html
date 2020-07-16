@@ -13,6 +13,7 @@
     <script src="js/dart_compressed.js"></script>
     <script src="js/javascript_compressed.js"></script>
     <script src="js/lua_compressed.js"></script>
+    <script src="js/maiascript_compressed.js"></script>
     <script src="js/php_compressed.js"></script>
     <script src="js/portugol_compressed.js"></script>
     <script src="js/python_compressed.js"></script>
@@ -25,10 +26,12 @@
   </head>
   <body>
     <div id="toolbar" style="height: 24px; width: 100%;">
+      <img src="images/learningblockly.png" onclick="aboutApp();">
       <img src="images/plus-square.png" onclick="newWorkspace();">
       <img src="images/upload.png" onclick="uploadXml();">
       <img src="images/download.png" onclick="downloadXml();">
       <img src="images/play.png" onclick="runJs()">
+      <img src="images/maiascript.png" onclick="exportMaia()">
       <img src="images/x-square.png" style="float: right;" onclick="clearWorkspace();">
       <select id="language" style="float: right; vertical-align: middle;" onchange="reloadApp()"></select>
     </div>
@@ -38,6 +41,7 @@
       <option value="dart">Dart</option>
       <option value="javascript">JavaScript</option>
       <option value="lua">Lua</option>
+      <option value="maiascript">MaiaScript</option>
       <option value="php">PHP</option>
       <option value="portugol">Portugol</option>
       <option value="python">Python</option>
@@ -49,6 +53,7 @@
       <option value="dart">Dart</option>
       <option value="javascript">JavaScript</option>
       <option value="lua">Lua</option>
+      <option value="maiascript">MaiaScript</option>
       <option value="php">PHP</option>
       <option value="portugol">Portugol</option>
       <option value="python">Python</option>
@@ -56,8 +61,6 @@
     </select>
     <img src="images/save.png" style="vertical-align: middle;" onclick="downloadCode2();">
     <div style="overflow-y: scroll;"><pre class="prettyprint" id="lang2code"></pre></div>
-    
-    <small style="font-family: 'Helvetica';">Copyright &copy; 2020 <a href="http://www.souzamonteiro.com" target="_blank">Roberto Luiz Souza Monteiro</a> (<a href="mailto:roberto@souzamonteiro.com">roberto@souzamonteiro.com</a></a>)</small>
     
     <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
       <category name="%{BKY_CAT_LOGIC}" colour="%{BKY_LOGIC_HUE}">
