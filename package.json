@@ -1,0 +1,31 @@
+{
+  "name": "learningblockly",
+  "version": "1.2.1",
+  "description": "LearningBlockly (The MaiaScript learning environment)\n\nMaiaScript is a programming language aimed at developing adaptable and intelligent applications.",
+  "keywords": [
+    "maia",
+    "maiascript",
+    "programming language",
+    "scientific computing",
+    "artificial intelligence",
+    "natural language processing",
+    "calculus"
+  ],
+  "author": "The MaiaScript Team (https://www.maiascript.com)",
+  "license": "Apache-2.0",
+  "homepage": "https://www.learningblockly.com",
+  "bugs": {
+    "url": "https://github.com/souzamonteiro/learningblockly/issues"
+  },
+  "main": "",
+  "bin": {},
+  "dependencies": {},
+  "scripts": {},
+  "directories": {
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/souzamonteiro/learningblockly.git"
+  }
+}
