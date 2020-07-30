@@ -209,7 +209,7 @@ function exportMaia() {
     localStorage.setItem('maiascript.maia', code);
     localStorage.setItem('editorMode', 'maia');
 
-    var win = window.open("http://www.maiascript.com/maiastudio/index.html", "", "");
+    var win = window.open("http://www.maiastudio.com.br/index.html", "", "");
 }
 
 function initInterpreter(interpreter, scope) {
@@ -240,7 +240,7 @@ function saveWorkspace() {
     localStorage.setItem("lang2", document.getElementById('lang2').value);
 }
 function loadWorkspace() {
-    if (localStorage.getItem("blockly.xml") != undefined) {
+    if (typeof localStorage.getItem("blockly.xml") != 'undefined') {
         var xmlText = localStorage.getItem("blockly.xml");
         if (xmlText) {
             Blockly.mainWorkspace.clear();
@@ -249,17 +249,17 @@ function loadWorkspace() {
         }
     }
 
-    if (localStorage.getItem("language") != undefined) {
+    if (typeof localStorage.getItem("language") != 'undefined') {
         document.getElementById('language').value = localStorage.getItem("language");
     } else {
         document.getElementById('language').value = "en";
     }
-    if (localStorage.getItem("lang1") != undefined) {
+    if (typeof localStorage.getItem("lang1") != 'undefined') {
         document.getElementById('lang1').value = localStorage.getItem("lang1");
     } else {
         document.getElementById('lang1').value = "javascript";
     }
-    if (localStorage.getItem("lang2") != undefined) {
+    if (typeof localStorage.getItem("lang2") != 'undefined') {
         document.getElementById('lang2').value = localStorage.getItem("lang2");
     } else {
         document.getElementById('lang2').value = "javascript";

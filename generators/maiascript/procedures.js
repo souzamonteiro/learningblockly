@@ -115,10 +115,10 @@ Blockly.MaiaScript['procedures_ifreturn'] = function(block) {
     var value = Blockly.MaiaScript.valueToCode(block, 'VALUE',
         Blockly.MaiaScript.ORDER_NONE) || 'null';
     //code += Blockly.MaiaScript.INDENT + 'return ' + value + ';\n';
-    code += Blockly.MaiaScript.INDENT + 'return ' + value + '\n';
+    code += Blockly.MaiaScript.INDENT + 'return(' + value + ')\n';
   } else {
     //code += Blockly.MaiaScript.INDENT + 'return;\n';
-    code += Blockly.MaiaScript.INDENT + 'return\n';
+    code += Blockly.MaiaScript.INDENT + 'return()\n';
   }
   code += '}\n';
   return code;

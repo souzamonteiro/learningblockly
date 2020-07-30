@@ -38,7 +38,7 @@ Blockly.MaiaScript['colour_random'] = function(block) {
       'colourRandom',
       ['function ' + Blockly.MaiaScript.FUNCTION_NAME_PLACEHOLDER_ + '() {',
         '  num = math.floor(math.random() * math.pow(2, 24))',
-        '  return \'#\' + core.substr(\'00000\' + core.toString(num, 16), -6)',
+        '  return(\'#\' + core.substr(\'00000\' + core.toString(num, 16), -6))',
         '}']);
   var code = functionName + '()';
   return [code, Blockly.MaiaScript.ORDER_FUNCTION_CALL];
@@ -62,7 +62,7 @@ Blockly.MaiaScript['colour_rgb'] = function(block) {
        '  r = core.slice(core.toString((\'0\' + (math.round(r) || 0), 16)), -2)',
        '  g = core.slice(core.toString((\'0\' + (math.round(g) || 0), 16)), -2)',
        '  b = core.slice(core.toString((\'0\' + (math.round(b) || 0), 16)), -2)',
-       '  return \'#\' + r + g + b',
+       '  return(\'#\' + r + g + b)',
        '}']);
   var code = functionName + '(' + red + ', ' + green + ', ' + blue + ')';
   return [code, Blockly.MaiaScript.ORDER_FUNCTION_CALL];
@@ -93,7 +93,7 @@ Blockly.MaiaScript['colour_blend'] = function(block) {
        '  r = core.slice(core.toString((\'0\' + (r || 0), 16)), -2)',
        '  g = core.slice(core.toString((\'0\' + (g || 0), 16)), -2)',
        '  b = core.slice(core.toString((\'0\' + (b || 0), 16)), -2)',
-       '  return \'#\' + r + g + b',
+       '  return(\'#\' + r + g + b)',
        '}']);
   var code = functionName + '(' + c1 + ', ' + c2 + ', ' + ratio + ')';
   return [code, Blockly.MaiaScript.ORDER_FUNCTION_CALL];

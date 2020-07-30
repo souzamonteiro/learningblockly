@@ -170,21 +170,21 @@ Blockly.MaiaScript['math_number_property'] = function(block) {
         ['function ' + Blockly.MaiaScript.FUNCTION_NAME_PLACEHOLDER_ + '(n) {',
          '  // https://en.wikipedia.org/wiki/Primality_test#Naive_methods',
          '  if (n == 2 || n == 3) {',
-         '    return true',
+         '    return(true)',
          '  }',
          '  // False if n is NaN, negative, is 1, or not whole.',
          '  // And false if n is divisible by 2 or 3.',
          '  if (isNaN(n) || n <= 1 || n % 1 != 0 || n % 2 == 0 ||' +
             ' n % 3 == 0) {',
-         '    return false',
+         '    return(false)',
          '  }',
          '  // Check all the numbers of form 6k +/- 1, up to sqrt(n).',
          '  for (x = 6; x <= math.sqrt(n) + 1; x = x + 6) {',
          '    if (n % (x - 1) == 0 || n % (x + 1) == 0) {',
-         '      return false',
+         '      return(false)',
          '    }',
          '  }',
-         '  return true',
+         '  return(true)',
          '}']);
     code = functionName + '(' + number_to_check + ')';
     return [code, Blockly.MaiaScript.ORDER_FUNCTION_CALL];
@@ -255,8 +255,8 @@ Blockly.MaiaScript['math_on_list'] = function(block) {
           'mathMean',
           ['function ' + Blockly.MaiaScript.FUNCTION_NAME_PLACEHOLDER_ +
               '(myList) {',
-            '  return myList.reduce(function(x, y) {return x + y}) / ' +
-                  'myList.length',
+            '  return(myList.reduce(function(x, y) {return x + y}) / ' +
+                  'myList.length)',
             '}']);
       list = Blockly.MaiaScript.valueToCode(block, 'LIST',
           Blockly.MaiaScript.ORDER_NONE) || '[]';
@@ -269,14 +269,14 @@ Blockly.MaiaScript['math_on_list'] = function(block) {
           ['function ' + Blockly.MaiaScript.FUNCTION_NAME_PLACEHOLDER_ +
               '(myList) {',
             '  localList = myList.filter(function (x) ' +
-              '{return typeof x == \'number\'})',
+              '{return(typeof x == \'number\')})',
             '  if (!localList.length) return null',
             '  localList.sort(function(a, b) {return b - a})',
             '  if (localList.length % 2 == 0) {',
-            '    return (localList[localList.length / 2 - 1] + ' +
-              'localList[localList.length / 2]) / 2',
+            '    return ((localList[localList.length / 2 - 1] + ' +
+              'localList[localList.length / 2]) / 2)',
             '  } else {',
-            '    return localList[(localList.length - 1) / 2]',
+            '    return(localList[(localList.length - 1) / 2])',
             '  }',
             '}']);
       list = Blockly.MaiaScript.valueToCode(block, 'LIST',
@@ -316,7 +316,7 @@ Blockly.MaiaScript['math_on_list'] = function(block) {
             '        modes.push(counts[j][0])',
             '    }',
             '  }',
-            '  return modes',
+            '  return(modes)',
             '}']);
       list = Blockly.MaiaScript.valueToCode(block, 'LIST',
           Blockly.MaiaScript.ORDER_NONE) || '[]';
@@ -335,7 +335,7 @@ Blockly.MaiaScript['math_on_list'] = function(block) {
             '    variance = variance + math.pow(numbers[j] - mean, 2)',
             '  }',
             '  variance = variance / n',
-            '  return math.sqrt(variance)',
+            '  return(math.sqrt(variance))',
             '}']);
       list = Blockly.MaiaScript.valueToCode(block, 'LIST',
           Blockly.MaiaScript.ORDER_NONE) || '[]';
@@ -347,7 +347,7 @@ Blockly.MaiaScript['math_on_list'] = function(block) {
           ['function ' + Blockly.MaiaScript.FUNCTION_NAME_PLACEHOLDER_ +
               '(list) {',
             '  x = math.floor(math.random() * core.length(list))',
-            '  return list[x]',
+            '  return(list[x])',
             '}']);
       list = Blockly.MaiaScript.valueToCode(block, 'LIST',
           Blockly.MaiaScript.ORDER_NONE) || '[]';
@@ -398,7 +398,7 @@ Blockly.MaiaScript['math_random_int'] = function(block) {
        '    a = b',
        '    b = c',
        '  }',
-       '  return math.floor(math.random() * (b - a + 1) + a)',
+       '  return(math.floor(math.random() * (b - a + 1) + a))',
        '}']);
   var code = functionName + '(' + argument0 + ', ' + argument1 + ')';
   return [code, Blockly.MaiaScript.ORDER_FUNCTION_CALL];

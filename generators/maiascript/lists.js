@@ -52,7 +52,7 @@ Blockly.MaiaScript['lists_repeat'] = function(block) {
        '  for (var i = 0; i < n; i = i + 1) {',
        '    array[i] = value',
        '  }',
-       '  return array',
+       '  return(array)',
        '}']);
   var element = Blockly.MaiaScript.valueToCode(block, 'ITEM',
       Blockly.MaiaScript.ORDER_COMMA) || 'null';
@@ -154,9 +154,9 @@ Blockly.MaiaScript['lists_getIndex'] = function(block) {
               '(list, remove) {',
            '  x = math.floor(math.random() * core.length(list))',
            '  if (remove) {',
-           '    return core.splice(list, x, 1)',
+           '    return(core.splice(list, x, 1))',
            '  } else {',
-           '    return list[x]',
+           '    return(list[x])',
            '  }',
            '}']);
       code = functionName + '(' + list + ', ' + (mode != 'GET') + ')';
@@ -325,9 +325,9 @@ Blockly.MaiaScript['lists_getSublist'] = function(block) {
             ((where1 == 'FROM_END' || where1 == 'FROM_START') ? ', at1' : '') +
             ((where2 == 'FROM_END' || where2 == 'FROM_START') ? ', at2' : '') +
             ') {',
-          '  start = ' + getIndex_('sequence', where1, 'at1') + ';',
-          '  end = ' + getIndex_('sequence', where2, 'at2') + ' + 1;',
-          '  return sequence.slice(start, end);',
+          '  start = ' + getIndex_('sequence', where1, 'at1'),
+          '  end = ' + getIndex_('sequence', where2, 'at2') + ' + 1',
+          '  return(sequence.slice(start, end))',
           '}']);
     var code = functionName + '(' + list +
         // The value for 'FROM_END' and 'FROM_START' depends on `at` so we
@@ -351,11 +351,11 @@ Blockly.MaiaScript['lists_sort'] = function(block) {
           '(type, direction) {',
        '  var compareFuncs = {',
        '    "NUMERIC": function(a, b) {',
-       '        return core.toNumber(a) - core.toNumber(b) },',
+       '        return(core.toNumber(a) - core.toNumber(b)) },',
        '    "TEXT": function(a, b) {',
-       '        return core.toString(a) > core.toString(b) ? 1 : -1 },',
+       '        return(core.toString(a) > core.toString(b) ? 1 : -1 )},',
        '    "IGNORE_CASE": function(a, b) {',
-       '        return core.toLowerCase(core.toString(a)) > ' +
+       '        return(core.toLowerCase(core.toString(a))) > ' +
           'core.toLowerCase(core.toString(b)) ? 1 : -1 },',
        '  };',
        '  var compare = compareFuncs[type]',

@@ -147,7 +147,7 @@ Blockly.MaiaScript['text_charAt'] = function(block) {
           ['function ' + Blockly.MaiaScript.FUNCTION_NAME_PLACEHOLDER_ +
               '(text) {',
            '  x = math.floor(math.random() * core.length(text))',
-           '  return text[x]',
+           '  return(text[x])',
            '}']);
       var code = functionName + '(' + text + ')';
       return [code, Blockly.MaiaScript.ORDER_FUNCTION_CALL];
@@ -236,7 +236,7 @@ Blockly.MaiaScript['text_getSubstring'] = function(block) {
         ') {',
           '  start = ' + getIndex_('sequence', where1, 'at1') + '',
           '  end = ' + getIndex_('sequence', where2, 'at2') + ' + 1',
-          '  return sequence.slice(start, end)',
+          '  return(sequence.slice(start, end))',
           '}']);
     var code = functionName + '(' + text +
         // The value for 'FROM_END' and 'FROM_START' depends on `at` so we
@@ -328,9 +328,9 @@ Blockly.MaiaScript['text_count'] = function(block) {
       ['function ' + Blockly.MaiaScript.FUNCTION_NAME_PLACEHOLDER_ +
           '(haystack, needle) {',
        '  if (needle.length === 0) {',
-       '    return haystack.length + 1',
+       '    return(haystack.length + 1)',
        '  } else {',
-       '    return haystack.split(needle).length - 1',
+       '    return(haystack.split(needle).length - 1)',
        '  }',
        '}']);
   var code = functionName + '(' + text + ', ' + sub + ')';
@@ -353,7 +353,7 @@ Blockly.MaiaScript['text_replace'] = function(block) {
        '  needle = ' +
            'needle.replace(/([-()\\[\\]{}+?*.$\\^|,:#<!\\\\])/g,"\\\\$1")',
        '                 .replace(/\\x08/g,"\\\\x08")',
-       '  return haystack.replace(new RegExp(needle, \'g\'), replacement)',
+       '  return(haystack.replace(new RegExp(needle, \'g\'), replacement))',
        '}']);
   var code = functionName + '(' + text + ', ' + from + ', ' + to + ')';
   return [code, Blockly.MaiaScript.ORDER_MEMBER];
