@@ -1,3 +1,3 @@
-- [ ] Review function generators for color and list operations
+- [x] Review function generators for color and list operations
 - [ ] Prepare binary distributions for macOS, Windows and Linux
 - [ ] Prepare binary distributions for iOS and Android
