@@ -45,14 +45,14 @@ Blockly.Portugol['lists_create_with'] = function(block) {
 Blockly.Portugol['lists_repeat'] = function(block) {
   // Create a list with one element repeated.
   var functionName = Blockly.Portugol.provideFunction_(
-      'listsRepeat',
-      ['function ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
-          '(value, n) {',
-       '  var array = [];',
-       '  for (var i = 0; i < n; i++) {',
-       '    array[i] = value;',
+      'repitaLista',
+      ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
+          '(valor, n) {',
+       '  var vetor = [];',
+       '  para (var i = 0; i < n; i++) {',
+       '    vetor[i] = valor;',
        '  }',
-       '  return array;',
+       '  retorne valor;',
        '}']);
   var element = Blockly.Portugol.valueToCode(block, 'ITEM',
       Blockly.Portugol.ORDER_COMMA) || 'null';
@@ -66,20 +66,20 @@ Blockly.Portugol['lists_length'] = function(block) {
   // String or array length.
   var list = Blockly.Portugol.valueToCode(block, 'VALUE',
       Blockly.Portugol.ORDER_MEMBER) || '[]';
-  return [list + '.length', Blockly.Portugol.ORDER_MEMBER];
+  return [list + '.tamanho', Blockly.Portugol.ORDER_MEMBER];
 };
 
 Blockly.Portugol['lists_isEmpty'] = function(block) {
   // Is the string null or array empty?
   var list = Blockly.Portugol.valueToCode(block, 'VALUE',
       Blockly.Portugol.ORDER_MEMBER) || '[]';
-  return ['!' + list + '.length', Blockly.Portugol.ORDER_LOGICAL_NOT];
+  return ['!' + list + '.tamanho', Blockly.Portugol.ORDER_LOGICAL_NOT];
 };
 
 Blockly.Portugol['lists_indexOf'] = function(block) {
   // Find an item in the list.
   var operator = block.getFieldValue('END') == 'FIRST' ?
-      'indexOf' : 'lastIndexOf';
+      'indiceDe' : 'ultimoIndiceDe';
   var item = Blockly.Portugol.valueToCode(block, 'FIND',
       Blockly.Portugol.ORDER_NONE) || '\'\'';
   var list = Blockly.Portugol.valueToCode(block, 'VALUE',
@@ -109,7 +109,7 @@ Blockly.Portugol['lists_getIndex'] = function(block) {
         var code = list + '.shift()';
         return [code, Blockly.Portugol.ORDER_MEMBER];
       } else if (mode == 'REMOVE') {
-        return list + '.shift();\n';
+        return list + '.insira();\n';
       }
       break;
     case ('LAST'):
@@ -117,10 +117,10 @@ Blockly.Portugol['lists_getIndex'] = function(block) {
         var code = list + '.slice(-1)[0]';
         return [code, Blockly.Portugol.ORDER_MEMBER];
       } else if (mode == 'GET_REMOVE') {
-        var code = list + '.pop()';
+        var code = list + '.remova()';
         return [code, Blockly.Portugol.ORDER_MEMBER];
       } else if (mode == 'REMOVE') {
-        return list + '.pop();\n';
+        return list + '.remova();\n';
       }
       break;
     case ('FROM_START'):
@@ -129,34 +129,34 @@ Blockly.Portugol['lists_getIndex'] = function(block) {
         var code = list + '[' + at + ']';
         return [code, Blockly.Portugol.ORDER_MEMBER];
       } else if (mode == 'GET_REMOVE') {
-        var code = list + '.splice(' + at + ', 1)[0]';
+        var code = list + '.fatia(' + at + ', 1)[0]';
         return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
       } else if (mode == 'REMOVE') {
-        return list + '.splice(' + at + ', 1);\n';
+        return list + '.fatia(' + at + ', 1);\n';
       }
       break;
     case ('FROM_END'):
       var at = Blockly.Portugol.getAdjusted(block, 'AT', 1, true);
       if (mode == 'GET') {
-        var code = list + '.slice(' + at + ')[0]';
+        var code = list + '.fatia(' + at + ')[0]';
         return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
       } else if (mode == 'GET_REMOVE') {
-        var code = list + '.splice(' + at + ', 1)[0]';
+        var code = list + '.fatia(' + at + ', 1)[0]';
         return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
       } else if (mode == 'REMOVE') {
-        return list + '.splice(' + at + ', 1);';
+        return list + '.fatia(' + at + ', 1);';
       }
       break;
     case ('RANDOM'):
       var functionName = Blockly.Portugol.provideFunction_(
-          'listsGetRandomItem',
-          ['function ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
-              '(list, remove) {',
-           '  var x = Math.floor(Math.random() * list.length);',
-           '  if (remove) {',
-           '    return list.splice(x, 1)[0];',
-           '  } else {',
-           '    return list[x];',
+          'obtenhaUmItemAleatorioDaLista',
+          ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
+              '(lista, remova) {',
+           '  var x = Mat.piso(Mat.aleatorio() * lista.tamanho);',
+           '  se (remova) {',
+           '    retorne lista.fatia(x, 1)[0];',
+           '  } senao {',
+           '    retorne lista[x];',
            '  }',
            '}']);
       code = functionName + '(' + list + ', ' + (mode != 'GET') + ')';
@@ -167,7 +167,7 @@ Blockly.Portugol['lists_getIndex'] = function(block) {
       }
       break;
   }
-  throw Error('Unhandled combination (lists_getIndex).');
+  throw Error('Combinação não tratada (lists_getIndex).');
 };
 
 Blockly.Portugol['lists_setIndex'] = function(block) {
@@ -196,16 +196,16 @@ Blockly.Portugol['lists_setIndex'] = function(block) {
       if (mode == 'SET') {
         return list + '[0] = ' + value + ';\n';
       } else if (mode == 'INSERT') {
-        return list + '.unshift(' + value + ');\n';
+        return list + '.remova(' + value + ');\n';
       }
       break;
     case ('LAST'):
       if (mode == 'SET') {
         var code = cacheList();
-        code += list + '[' + list + '.length - 1] = ' + value + ';\n';
+        code += list + '[' + list + '.tamanho - 1] = ' + value + ';\n';
         return code;
       } else if (mode == 'INSERT') {
-        return list + '.push(' + value + ');\n';
+        return list + '.topo(' + value + ');\n';
       }
       break;
     case ('FROM_START'):
@@ -213,7 +213,7 @@ Blockly.Portugol['lists_setIndex'] = function(block) {
       if (mode == 'SET') {
         return list + '[' + at + '] = ' + value + ';\n';
       } else if (mode == 'INSERT') {
-        return list + '.splice(' + at + ', 0, ' + value + ');\n';
+        return list + '.fatia(' + at + ', 0, ' + value + ');\n';
       }
       break;
     case ('FROM_END'):
@@ -221,10 +221,10 @@ Blockly.Portugol['lists_setIndex'] = function(block) {
           Blockly.Portugol.ORDER_SUBTRACTION);
       var code = cacheList();
       if (mode == 'SET') {
-        code += list + '[' + list + '.length - ' + at + '] = ' + value + ';\n';
+        code += list + '[' + list + '.tamanho - ' + at + '] = ' + value + ';\n';
         return code;
       } else if (mode == 'INSERT') {
-        code += list + '.splice(' + list + '.length - ' + at + ', 0, ' + value +
+        code += list + '.fatia(' + list + '.tamanho - ' + at + ', 0, ' + value +
             ');\n';
         return code;
       }
@@ -233,18 +233,18 @@ Blockly.Portugol['lists_setIndex'] = function(block) {
       var code = cacheList();
       var xVar = Blockly.Portugol.variableDB_.getDistinctName(
           'tmpX', Blockly.VARIABLE_CATEGORY_NAME);
-      code += 'var ' + xVar + ' = Math.floor(Math.random() * ' + list +
-          '.length);\n';
+      code += 'var ' + xVar + ' = Mat.piso(Mat.aleatorio() * ' + list +
+          '.tamanho);\n';
       if (mode == 'SET') {
         code += list + '[' + xVar + '] = ' + value + ';\n';
         return code;
       } else if (mode == 'INSERT') {
-        code += list + '.splice(' + xVar + ', 0, ' + value + ');\n';
+        code += list + '.fatia(' + xVar + ', 0, ' + value + ');\n';
         return code;
       }
       break;
   }
-  throw Error('Unhandled combination (lists_setIndex).');
+  throw Error('Combinação não tratada (lists_setIndex).');
 };
 
 /**
@@ -261,7 +261,7 @@ Blockly.Portugol.lists.getIndex_ = function(listName, where, opt_at) {
   } else if (where == 'FROM_END') {
     return listName + '.length - 1 - ' + opt_at;
   } else if (where == 'LAST') {
-    return listName + '.length - 1';
+    return listName + '.tamanho - 1';
   } else {
     return opt_at;
   }
@@ -274,7 +274,7 @@ Blockly.Portugol['lists_getSublist'] = function(block) {
   var where1 = block.getFieldValue('WHERE1');
   var where2 = block.getFieldValue('WHERE2');
   if (where1 == 'FIRST' && where2 == 'LAST') {
-    var code = list + '.slice(0)';
+    var code = list + '.fatia(0)';
   } else if (list.match(/^\w+$/) ||
       (where1 != 'FROM_END' && where2 == 'FROM_START')) {
     // If the list is a variable or doesn't require a call for length, don't
@@ -286,13 +286,13 @@ Blockly.Portugol['lists_getSublist'] = function(block) {
       case 'FROM_END':
         var at1 = Blockly.Portugol.getAdjusted(block, 'AT1', 1, false,
             Blockly.Portugol.ORDER_SUBTRACTION);
-        at1 = list + '.length - ' + at1;
+        at1 = list + '.tamanho - ' + at1;
         break;
       case 'FIRST':
         var at1 = '0';
         break;
       default:
-        throw Error('Unhandled option (lists_getSublist).');
+        throw Error('Opção não tratada (lists_getSublist).');
     }
     switch (where2) {
       case 'FROM_START':
@@ -301,15 +301,15 @@ Blockly.Portugol['lists_getSublist'] = function(block) {
       case 'FROM_END':
         var at2 = Blockly.Portugol.getAdjusted(block, 'AT2', 0, false,
             Blockly.Portugol.ORDER_SUBTRACTION);
-        at2 = list + '.length - ' + at2;
+        at2 = list + '.tamanho - ' + at2;
         break;
       case 'LAST':
-        var at2 = list + '.length';
+        var at2 = list + '.tamanho';
         break;
       default:
-        throw Error('Unhandled option (lists_getSublist).');
+        throw Error('Opção não tratada (lists_getSublist).');
     }
-    code = list + '.slice(' + at1 + ', ' + at2 + ')';
+    code = list + '.fatia(' + at1 + ', ' + at2 + ')';
   } else {
     var at1 = Blockly.Portugol.getAdjusted(block, 'AT1');
     var at2 = Blockly.Portugol.getAdjusted(block, 'AT2');
@@ -317,17 +317,17 @@ Blockly.Portugol['lists_getSublist'] = function(block) {
     var wherePascalCase = {'FIRST': 'First', 'LAST': 'Last',
         'FROM_START': 'FromStart', 'FROM_END': 'FromEnd'};
     var functionName = Blockly.Portugol.provideFunction_(
-        'subsequence' + wherePascalCase[where1] + wherePascalCase[where2],
-        ['function ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
-            '(sequence' +
+        'subsequencia' + wherePascalCase[where1] + wherePascalCase[where2],
+        ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
+            '(squencia' +
             // The value for 'FROM_END' and'FROM_START' depends on `at` so
             // we add it as a parameter.
             ((where1 == 'FROM_END' || where1 == 'FROM_START') ? ', at1' : '') +
             ((where2 == 'FROM_END' || where2 == 'FROM_START') ? ', at2' : '') +
             ') {',
-          '  var start = ' + getIndex_('sequence', where1, 'at1') + ';',
-          '  var end = ' + getIndex_('sequence', where2, 'at2') + ' + 1;',
-          '  return sequence.slice(start, end);',
+          '  var inicio = ' + getIndex_('squencia', where1, 'at1') + ';',
+          '  var fim = ' + getIndex_('squencia', where2, 'at2') + ' + 1;',
+          '  retorne sequence.fatia(inicio, fim);',
           '}']);
     var code = functionName + '(' + list +
         // The value for 'FROM_END' and 'FROM_START' depends on `at` so we
@@ -346,22 +346,22 @@ Blockly.Portugol['lists_sort'] = function(block) {
   var direction = block.getFieldValue('DIRECTION') === '1' ? 1 : -1;
   var type = block.getFieldValue('TYPE');
   var getCompareFunctionName = Blockly.Portugol.provideFunction_(
-      'listsGetSortCompare',
-      ['function ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
-          '(type, direction) {',
-       '  var compareFuncs = {',
-       '    "NUMERIC": function(a, b) {',
-       '        return Number(a) - Number(b); },',
-       '    "TEXT": function(a, b) {',
-       '        return a.toString() > b.toString() ? 1 : -1; },',
-       '    "IGNORE_CASE": function(a, b) {',
-       '        return a.toString().toLowerCase() > ' +
-          'b.toString().toLowerCase() ? 1 : -1; },',
+      'compareItensDaLista',
+      ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
+          '(tipo, direcao) {',
+       '  var compareFuncoes = {',
+       '    "NUMERIC": funcao(a, b) {',
+       '        retorne Numero(a) - Numero(b); },',
+       '    "TEXT": funcao(a, b) {',
+       '        retorne a.paraCadeia() > b.paraCadeia() ? 1 : -1; },',
+       '    "IGNORE_CASE": funcao(a, b) {',
+       '        retorne a.paraCadeia().paraMinusculas() > ' +
+          'b.paraCadeia().paraMinusculas() ? 1 : -1; },',
        '  };',
-       '  var compare = compareFuncs[type];',
-       '  return function(a, b) { return compare(a, b) * direction; }',
+       '  var compare = compareFuncoes[tipo];',
+       '  retorne funcao(a, b) { retorne compare(a, b) * direcao; }',
        '}']);
-  return [list + '.slice().sort(' +
+  return [list + '.fatia().ordene(' +
       getCompareFunctionName + '("' + type + '", ' + direction + '))',
       Blockly.Portugol.ORDER_FUNCTION_CALL];
 };
@@ -384,7 +384,7 @@ Blockly.Portugol['lists_split'] = function(block) {
     }
     var functionName = 'join';
   } else {
-    throw Error('Unknown mode: ' + mode);
+    throw Error('Modo desconhecido: ' + mode);
   }
   var code = input + '.' + functionName + '(' + delimiter + ')';
   return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
@@ -394,6 +394,6 @@ Blockly.Portugol['lists_reverse'] = function(block) {
   // Block for reversing a list.
   var list = Blockly.Portugol.valueToCode(block, 'LIST',
       Blockly.Portugol.ORDER_FUNCTION_CALL) || '[]';
-  var code = list + '.slice().reverse()';
+  var code = list + '.fatia().reversa()';
   return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
 };

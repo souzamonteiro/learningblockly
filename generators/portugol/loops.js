@@ -40,7 +40,7 @@ Blockly.Portugol['controls_repeat_ext'] = function(block) {
   branch = Blockly.Portugol.addLoopTrap(branch, block);
   var code = '';
   var loopVar = Blockly.Portugol.variableDB_.getDistinctName(
-      'count', Blockly.VARIABLE_CATEGORY_NAME);
+      'countador', Blockly.VARIABLE_CATEGORY_NAME);
   var endVar = repeats;
   if (!repeats.match(/^\w+$/) && !Blockly.isNumber(repeats)) {
     endVar = Blockly.Portugol.variableDB_.getDistinctName(
@@ -121,9 +121,9 @@ Blockly.Portugol['controls_for'] = function(block) {
     if (Blockly.isNumber(increment)) {
       code += Math.abs(increment) + ';\n';
     } else {
-      code += 'Math.abs(' + increment + ');\n';
+      code += 'Mat.abs(' + increment + ');\n';
     }
-    code += 'if (' + startVar + ' > ' + endVar + ') {\n';
+    code += 'se (' + startVar + ' > ' + endVar + ') {\n';
     code += Blockly.Portugol.INDENT + incVar + ' = -' + incVar + ';\n';
     code += '}\n';
     code += 'para (' + variable0 + ' = ' + startVar + '; ' +
@@ -156,7 +156,7 @@ Blockly.Portugol['controls_forEach'] = function(block) {
       variable0 + '_index', Blockly.VARIABLE_CATEGORY_NAME);
   branch = Blockly.Portugol.INDENT + variable0 + ' = ' +
       listVar + '[' + indexVar + '];\n' + branch;
-  code += 'for (var ' + indexVar + ' in ' + listVar + ') {\n' + branch + '}\n';
+  code += 'para (var ' + indexVar + ' em ' + listVar + ') {\n' + branch + '}\n';
   return code;
 };
 
@@ -187,9 +187,9 @@ Blockly.Portugol['controls_flow_statements'] = function(block) {
   }
   switch (block.getFieldValue('FLOW')) {
     case 'BREAK':
-      return xfix + 'break;\n';
+      return xfix + 'pare;\n';
     case 'CONTINUE':
       return xfix + 'continue;\n';
   }
-  throw Error('Unknown flow statement.');
+  throw Error('Fluxo de declarações desconhecido.');
 };

@@ -91,11 +91,11 @@ Blockly.Portugol['logic_operation'] = function(block) {
   var argument1 = Blockly.Portugol.valueToCode(block, 'B', order);
   if (!argument0 && !argument1) {
     // If there are no arguments, then the return value is false.
-    argument0 = 'false';
-    argument1 = 'false';
+    argument0 = 'falso';
+    argument1 = 'falso';
   } else {
     // Single missing arguments have no effect on the return value.
-    var defaultArgument = (operator == '&&') ? 'true' : 'false';
+    var defaultArgument = (operator == '&&') ? 'verdadeiro' : 'falso';
     if (!argument0) {
       argument0 = defaultArgument;
     }

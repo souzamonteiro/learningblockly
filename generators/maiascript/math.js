@@ -268,10 +268,11 @@ Blockly.MaiaScript['math_on_list'] = function(block) {
           'mathMedian',
           ['function ' + Blockly.MaiaScript.FUNCTION_NAME_PLACEHOLDER_ +
               '(myList) {',
-            '  localList = myList.filter(function (x) ' +
-              '{return(typeof x == \'number\')})',
-            '  if (!localList.length) return null',
-            '  localList.sort(function(a, b) {return b - a})',
+            '  function ListFilter(x) {return(typeof x == \'number\')}',
+            '  function sortCallback(a, b) {return(b - a)}',
+            '  localList = myList.filter(ListFilter)',
+            '  if (!localList.length) {return(null)}',
+            '  localList.sort(sortCallback)',
             '  if (localList.length % 2 == 0) {',
             '    return ((localList[localList.length / 2 - 1] + ' +
               'localList[localList.length / 2]) / 2)',
@@ -328,8 +329,9 @@ Blockly.MaiaScript['math_on_list'] = function(block) {
           ['function ' + Blockly.MaiaScript.FUNCTION_NAME_PLACEHOLDER_ +
               '(numbers) {',
             '  n = core.length(numbers)',
+            '  function reduceCallback(x, y) {return x + y}',
             '  if (!n) return null',
-            '  mean = numbers.reduce(function(x, y) {return x + y}) / n',
+            '  mean = numbers.reduce(reduceCallback) / n',
             '  variance = 0',
             '  for (j = 0; j < n; j = j + 1) {',
             '    variance = variance + math.pow(numbers[j] - mean, 2)',

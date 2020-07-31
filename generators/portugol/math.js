@@ -16,12 +16,12 @@
  */
 
 /**
- * @fileoverview Generating Portugol for math blocks.
+ * @fileoverview Generating Portugol for Mat blocks.
  * @author roberto@souzamonteiro.com (Roberto Luiz Souza Monteiro)
  */
 'use strict';
 
-goog.provide('Blockly.Portugol.math');
+goog.provide('Blockly.Portugol.Mat');
 
 goog.require('Blockly.Portugol');
 
@@ -51,7 +51,7 @@ Blockly.Portugol['math_arithmetic'] = function(block) {
   var code;
   // Power in Portugol requires a special case since it has no operator.
   if (!operator) {
-    code = 'Math.pow(' + argument0 + ', ' + argument1 + ')';
+    code = 'Mat.potencia(' + argument0 + ', ' + argument1 + ')';
     return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
   }
   code = argument0 + operator + argument1;
@@ -59,7 +59,7 @@ Blockly.Portugol['math_arithmetic'] = function(block) {
 };
 
 Blockly.Portugol['math_single'] = function(block) {
-  // Math operators with single operand.
+  // Mat operators with single operand.
   var operator = block.getFieldValue('OP');
   var code;
   var arg;
@@ -85,37 +85,37 @@ Blockly.Portugol['math_single'] = function(block) {
   // wrapping the code.
   switch (operator) {
     case 'ABS':
-      code = 'Math.abs(' + arg + ')';
+      code = 'Mat.abs(' + arg + ')';
       break;
     case 'ROOT':
-      code = 'Math.sqrt(' + arg + ')';
+      code = 'Mat.raiz(' + arg + ')';
       break;
     case 'LN':
-      code = 'Math.log(' + arg + ')';
+      code = 'Mat.log(' + arg + ')';
       break;
     case 'EXP':
-      code = 'Math.exp(' + arg + ')';
+      code = 'Mat.exp(' + arg + ')';
       break;
     case 'POW10':
-      code = 'Math.pow(10,' + arg + ')';
+      code = 'Mat.potencia(10,' + arg + ')';
       break;
     case 'ROUND':
-      code = 'Math.round(' + arg + ')';
+      code = 'Mat.arredonde(' + arg + ')';
       break;
     case 'ROUNDUP':
-      code = 'Math.ceil(' + arg + ')';
+      code = 'Mat.teto(' + arg + ')';
       break;
     case 'ROUNDDOWN':
-      code = 'Math.floor(' + arg + ')';
+      code = 'Mat.piso(' + arg + ')';
       break;
     case 'SIN':
-      code = 'Math.sin(' + arg + ' / 180 * Math.PI)';
+      code = 'Mat.seno(' + arg + ' / 180 * Mat.PI)';
       break;
     case 'COS':
-      code = 'Math.cos(' + arg + ' / 180 * Math.PI)';
+      code = 'Mat.cosseno(' + arg + ' / 180 * Mat.PI)';
       break;
     case 'TAN':
-      code = 'Math.tan(' + arg + ' / 180 * Math.PI)';
+      code = 'Mat.tangente(' + arg + ' / 180 * Mat.PI)';
       break;
   }
   if (code) {
@@ -125,19 +125,19 @@ Blockly.Portugol['math_single'] = function(block) {
   // wrapping the code.
   switch (operator) {
     case 'LOG10':
-      code = 'Math.log(' + arg + ') / Math.log(10)';
+      code = 'Mat.log(' + arg + ') / Mat.log(10)';
       break;
     case 'ASIN':
-      code = 'Math.asin(' + arg + ') / Math.PI * 180';
+      code = 'Mat.arcoseno(' + arg + ') / Mat.PI * 180';
       break;
     case 'ACOS':
-      code = 'Math.acos(' + arg + ') / Math.PI * 180';
+      code = 'Mat.arcocosseno(' + arg + ') / Mat.PI * 180';
       break;
     case 'ATAN':
-      code = 'Math.atan(' + arg + ') / Math.PI * 180';
+      code = 'Mat.arcotangente(' + arg + ') / Mat.PI * 180';
       break;
     default:
-      throw Error('Unknown math operator: ' + operator);
+      throw Error('Operador matemático desconhecido: ' + operator);
   }
   return [code, Blockly.Portugol.ORDER_DIVISION];
 };
@@ -145,13 +145,13 @@ Blockly.Portugol['math_single'] = function(block) {
 Blockly.Portugol['math_constant'] = function(block) {
   // Constants: PI, E, the Golden Ratio, sqrt(2), 1/sqrt(2), INFINITY.
   var CONSTANTS = {
-    'PI': ['Math.PI', Blockly.Portugol.ORDER_MEMBER],
-    'E': ['Math.E', Blockly.Portugol.ORDER_MEMBER],
+    'PI': ['Mat.PI', Blockly.Portugol.ORDER_MEMBER],
+    'E': ['Mat.E', Blockly.Portugol.ORDER_MEMBER],
     'GOLDEN_RATIO':
-        ['(1 + Math.sqrt(5)) / 2', Blockly.Portugol.ORDER_DIVISION],
-    'SQRT2': ['Math.SQRT2', Blockly.Portugol.ORDER_MEMBER],
-    'SQRT1_2': ['Math.SQRT1_2', Blockly.Portugol.ORDER_MEMBER],
-    'INFINITY': ['Infinity', Blockly.Portugol.ORDER_ATOMIC]
+        ['(1 + Mat.raiz(5)) / 2', Blockly.Portugol.ORDER_DIVISION],
+    'SQRT2': ['Mat.RAIZ2', Blockly.Portugol.ORDER_MEMBER],
+    'SQRT1_2': ['Mat.RAIZ1_2', Blockly.Portugol.ORDER_MEMBER],
+    'INFINITY': ['Infinito', Blockly.Portugol.ORDER_ATOMIC]
   };
   return CONSTANTS[block.getFieldValue('CONSTANT')];
 };
@@ -166,25 +166,25 @@ Blockly.Portugol['math_number_property'] = function(block) {
   if (dropdown_property == 'PRIME') {
     // Prime is a special case as it is not a one-liner test.
     var functionName = Blockly.Portugol.provideFunction_(
-        'mathIsPrime',
-        ['function ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ + '(n) {',
+        'ehPrimo',
+        ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ + '(n) {',
          '  // https://en.wikipedia.org/wiki/Primality_test#Naive_methods',
          '  if (n == 2 || n == 3) {',
-         '    return true;',
+         '    retorne verdadeiro;',
          '  }',
-         '  // False if n is NaN, negative, is 1, or not whole.',
-         '  // And false if n is divisible by 2 or 3.',
+         '  // Falso se n é NaN.',
+         '  // E falso se n é divisivel por 2 ou 3.',
          '  if (isNaN(n) || n <= 1 || n % 1 != 0 || n % 2 == 0 ||' +
             ' n % 3 == 0) {',
-         '    return false;',
+         '    retorne falso;',
          '  }',
-         '  // Check all the numbers of form 6k +/- 1, up to sqrt(n).',
-         '  for (var x = 6; x <= Math.sqrt(n) + 1; x += 6) {',
-         '    if (n % (x - 1) == 0 || n % (x + 1) == 0) {',
-         '      return false;',
+         '  // CVerifique todos os números na forma 6k +/- 1, até raiz(n).',
+         '  para (var x = 6; x <= Mat.raiz(n) + 1; x += 6) {',
+         '    se (n % (x - 1) == 0 || n % (x + 1) == 0) {',
+         '      retorne falso;',
          '    }',
          '  }',
-         '  return true;',
+         '  return verdadeiro;',
          '}']);
     code = functionName + '(' + number_to_check + ')';
     return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
@@ -220,63 +220,63 @@ Blockly.Portugol['math_change'] = function(block) {
       Blockly.Portugol.ORDER_ADDITION) || '0';
   var varName = Blockly.Portugol.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
-  return varName + ' = (typeof ' + varName + ' == \'number\' ? ' + varName +
+  return varName + ' = (tipode ' + varName + ' == \'numero\' ? ' + varName +
       ' : 0) + ' + argument0 + ';\n';
 };
 
 // Rounding functions have a single operand.
-Blockly.Portugol['math_round'] = Blockly.Portugol['math_single'];
+Blockly.Portugol['math_round'] = Blockly.Portugol['Mat_single'];
 // Trigonometry functions have a single operand.
-Blockly.Portugol['math_trig'] = Blockly.Portugol['math_single'];
+Blockly.Portugol['math_trig'] = Blockly.Portugol['Mat_single'];
 
 Blockly.Portugol['math_on_list'] = function(block) {
-  // Math functions for lists.
+  // Mat functions for lists.
   var func = block.getFieldValue('OP');
   var list, code;
   switch (func) {
     case 'SUM':
       list = Blockly.Portugol.valueToCode(block, 'LIST',
           Blockly.Portugol.ORDER_MEMBER) || '[]';
-      code = list + '.reduce(function(x, y) {return x + y;})';
+      code = list + '.reduza(funcao(x, y) {retorne x + y;})';
       break;
     case 'MIN':
       list = Blockly.Portugol.valueToCode(block, 'LIST',
           Blockly.Portugol.ORDER_COMMA) || '[]';
-      code = 'Math.min.apply(null, ' + list + ')';
+      code = 'Mat.min.aplique(nulo, ' + list + ')';
       break;
     case 'MAX':
       list = Blockly.Portugol.valueToCode(block, 'LIST',
           Blockly.Portugol.ORDER_COMMA) || '[]';
-      code = 'Math.max.apply(null, ' + list + ')';
+      code = 'Mat.max.aplique(nulo, ' + list + ')';
       break;
     case 'AVERAGE':
-      // mathMean([null,null,1,3]) == 2.0.
+      // MatMean([null,null,1,3]) == 2.0.
       var functionName = Blockly.Portugol.provideFunction_(
-          'mathMean',
-          ['function ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
-              '(myList) {',
-            '  return myList.reduce(function(x, y) {return x + y;}) / ' +
-                  'myList.length;',
+          'media',
+          ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
+              '(minhaLista) {',
+            '  retorne minhaLista.reduza(function(x, y) {retorne x + y;}) / ' +
+                  'minhaLista.tamanho;',
             '}']);
       list = Blockly.Portugol.valueToCode(block, 'LIST',
           Blockly.Portugol.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
       break;
     case 'MEDIAN':
-      // mathMedian([null,null,1,3]) == 2.0.
+      // MatMedian([null,null,1,3]) == 2.0.
       var functionName = Blockly.Portugol.provideFunction_(
-          'mathMedian',
-          ['function ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
-              '(myList) {',
-            '  var localList = myList.filter(function (x) ' +
-              '{return typeof x == \'number\';});',
-            '  if (!localList.length) return null;',
-            '  localList.sort(function(a, b) {return b - a;});',
+          'mediana',
+          ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
+              '(minhaLista) {',
+            '  var listaLocal = minhaLista.filter(function (x) ' +
+              '{retorne tipode x == \'numero\';});',
+            '  se (!listaLocal.length) retorne null;',
+            '  listaLocal.sort(function(a, b) {retorne b - a;});',
             '  if (localList.length % 2 == 0) {',
-            '    return (localList[localList.length / 2 - 1] + ' +
-              'localList[localList.length / 2]) / 2;',
-            '  } else {',
-            '    return localList[(localList.length - 1) / 2];',
+            '    retorne (listaLocal[listaLocal.tamanho / 2 - 1] + ' +
+              'listaLocal[listaLocal.length / 2]) / 2;',
+            '  } senao {',
+            '    retorne listaLocal[(listaLocal.tamanho - 1) / 2];',
             '  }',
             '}']);
       list = Blockly.Portugol.valueToCode(block, 'LIST',
@@ -288,35 +288,35 @@ Blockly.Portugol['math_on_list'] = function(block) {
       // the returned result is provided as an array.
       // Mode of [3, 'x', 'x', 1, 1, 2, '3'] -> ['x', 1].
       var functionName = Blockly.Portugol.provideFunction_(
-          'mathModes',
-          ['function ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
-              '(values) {',
-            '  var modes = [];',
-            '  var counts = [];',
+          'modos',
+          ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
+              '(valores) {',
+            '  var modos = [];',
+            '  var contados = [];',
             '  var maxCount = 0;',
-            '  for (var i = 0; i < values.length; i++) {',
-            '    var value = values[i];',
-            '    var found = false;',
-            '    var thisCount;',
-            '    for (var j = 0; j < counts.length; j++) {',
-            '      if (counts[j][0] === value) {',
-            '        thisCount = ++counts[j][1];',
-            '        found = true;',
-            '        break;',
+            '  para (var i = 0; i < values.tamanho; i++) {',
+            '    var valor = valores[i];',
+            '    var encontrado = falso;',
+            '    var estaContagem;',
+            '    para (var j = 0; j < contados.tamanho; j++) {',
+            '      if (contados[j][0] === value) {',
+            '        estaContagem = ++contados[j][1];',
+            '        encontrado = verdadeiro;',
+            '        pare;',
             '      }',
             '    }',
-            '    if (!found) {',
-            '      counts.push([value, 1]);',
-            '      thisCount = 1;',
+            '    se (!encontrado) {',
+            '      contados.topo([valor, 1]);',
+            '      estaContagem = 1;',
             '    }',
-            '    maxCount = Math.max(thisCount, maxCount);',
+            '    maxCount = Mat.max(estaContagem, maxCount);',
             '  }',
-            '  for (var j = 0; j < counts.length; j++) {',
-            '    if (counts[j][1] == maxCount) {',
-            '        modes.push(counts[j][0]);',
+            '  para (var j = 0; j < counts.tamanho; j++) {',
+            '    se (contados[j][1] == maxCount) {',
+            '        modos.topo(contados[j][0]);',
             '    }',
             '  }',
-            '  return modes;',
+            '  retorne modos;',
             '}']);
       list = Blockly.Portugol.valueToCode(block, 'LIST',
           Blockly.Portugol.ORDER_NONE) || '[]';
@@ -324,18 +324,18 @@ Blockly.Portugol['math_on_list'] = function(block) {
       break;
     case 'STD_DEV':
       var functionName = Blockly.Portugol.provideFunction_(
-          'mathStandardDeviation',
-          ['function ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
-              '(numbers) {',
-            '  var n = numbers.length;',
-            '  if (!n) return null;',
-            '  var mean = numbers.reduce(function(x, y) {return x + y;}) / n;',
-            '  var variance = 0;',
-            '  for (var j = 0; j < n; j++) {',
-            '    variance += Math.pow(numbers[j] - mean, 2);',
+          'desvioPadrao',
+          ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
+              '(numeros) {',
+            '  var n = numeros.tamanho;',
+            '  se (!n) retorne nulo;',
+            '  var media = numeros.reduza(funcao(x, y) {retorne x + y;}) / n;',
+            '  var variancia = 0;',
+            '  para (var j = 0; j < n; j++) {',
+            '    variancia += Mat.potencia(numeros[j] - media, 2);',
             '  }',
-            '  variance = variance / n;',
-            '  return Math.sqrt(variance);',
+            '  variancia = variancia / n;',
+            '  retorne Mat.raiz(variancia);',
             '}']);
       list = Blockly.Portugol.valueToCode(block, 'LIST',
           Blockly.Portugol.ORDER_NONE) || '[]';
@@ -343,18 +343,18 @@ Blockly.Portugol['math_on_list'] = function(block) {
       break;
     case 'RANDOM':
       var functionName = Blockly.Portugol.provideFunction_(
-          'mathRandomList',
-          ['function ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
-              '(list) {',
-            '  var x = Math.floor(Math.random() * list.length);',
-            '  return list[x];',
+          'listaAleatoria',
+          ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
+              '(lista) {',
+            '  var x = Mat.piso(Mat.aleatorio() * lista.tamanho);',
+            '  retorne lista[x];',
             '}']);
       list = Blockly.Portugol.valueToCode(block, 'LIST',
           Blockly.Portugol.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
       break;
     default:
-      throw Error('Unknown operator: ' + func);
+      throw Error('Operador desconhecido: ' + func);
   }
   return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
 };
@@ -377,7 +377,7 @@ Blockly.Portugol['math_constrain'] = function(block) {
       Blockly.Portugol.ORDER_COMMA) || '0';
   var argument2 = Blockly.Portugol.valueToCode(block, 'HIGH',
       Blockly.Portugol.ORDER_COMMA) || 'Infinity';
-  var code = 'Math.min(Math.max(' + argument0 + ', ' + argument1 + '), ' +
+  var code = 'Mat.min(Mat.max(' + argument0 + ', ' + argument1 + '), ' +
       argument2 + ')';
   return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
 };
@@ -389,16 +389,16 @@ Blockly.Portugol['math_random_int'] = function(block) {
   var argument1 = Blockly.Portugol.valueToCode(block, 'TO',
       Blockly.Portugol.ORDER_COMMA) || '0';
   var functionName = Blockly.Portugol.provideFunction_(
-      'mathRandomInt',
-      ['function ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
+      'inteiroAleatorio',
+      ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
           '(a, b) {',
-       '  if (a > b) {',
-       '    // Swap a and b to ensure a is smaller.',
+       '  se (a > b) {',
+       '    // Troca a e b para ter certeza de qual é o menor valor.',
        '    var c = a;',
        '    a = b;',
        '    b = c;',
        '  }',
-       '  return Math.floor(Math.random() * (b - a + 1) + a);',
+       '  retorne Mat.piso(Mat.aleatorio() * (b - a + 1) + a);',
        '}']);
   var code = functionName + '(' + argument0 + ', ' + argument1 + ')';
   return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
@@ -406,7 +406,7 @@ Blockly.Portugol['math_random_int'] = function(block) {
 
 Blockly.Portugol['math_random_float'] = function(block) {
   // Random fraction between 0 and 1.
-  return ['Math.random()', Blockly.Portugol.ORDER_FUNCTION_CALL];
+  return ['Mat.aleatorio()', Blockly.Portugol.ORDER_FUNCTION_CALL];
 };
 
 Blockly.Portugol['math_atan2'] = function(block) {
@@ -415,6 +415,6 @@ Blockly.Portugol['math_atan2'] = function(block) {
       Blockly.Portugol.ORDER_COMMA) || '0';
   var argument1 = Blockly.Portugol.valueToCode(block, 'Y',
       Blockly.Portugol.ORDER_COMMA) || '0';
-  return ['Math.atan2(' + argument1 + ', ' + argument0 + ') / Math.PI * 180',
+  return ['Math.atan2(' + argument1 + ', ' + argument0 + ') / Mat.PI * 180',
       Blockly.Portugol.ORDER_DIVISION];
 };

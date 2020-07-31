@@ -269,9 +269,9 @@ Blockly.MaiaScript['text_changeCase'] = function(block) {
         'textToTitleCase',
         ['function ' + Blockly.MaiaScript.FUNCTION_NAME_PLACEHOLDER_ +
             '(str) {',
-         '  return str.replace(/\\S+/g,',
-         '      function(txt) {return txt[0].toUpperCase() + ' +
-            'txt.substring(1).toLowerCase()})',
+         '   function camelCase(txt) {return(txt[0].toUpperCase() + ',
+             'txt.substring(1).toLowerCase())}',
+         '   return(str.replace(/\\S+/g, camelCase))',
          '}']);
     var code = functionName + '(' + text + ')';
   }

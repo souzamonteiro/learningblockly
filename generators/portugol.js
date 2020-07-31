@@ -47,7 +47,7 @@ Blockly.Portugol.addReservedWords(
     'enum,' +
     'implementa,interface,deixe,pacote,privado,protegido,publico,estatico,' +
     'espere,' +
-    'null,verdadeiro,falso,' +
+    'nulo,verdadeiro,falso,' +
     // Magic variable.
     'argumentos,' +
     // Everything in the current environment (835 items in Chrome, 104 in Node).

@@ -102,7 +102,7 @@ Blockly.Portugol['procedures_ifreturn'] = function(block) {
   // Conditionally return value from a procedure.
   var condition = Blockly.Portugol.valueToCode(block, 'CONDITION',
       Blockly.Portugol.ORDER_NONE) || 'false';
-  var code = 'if (' + condition + ') {\n';
+  var code = 'se (' + condition + ') {\n';
   if (Blockly.Portugol.STATEMENT_SUFFIX) {
     // Inject any statement suffix here since the regular one at the end
     // will not get executed if the return is triggered.

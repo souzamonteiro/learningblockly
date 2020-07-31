@@ -102,14 +102,14 @@ Blockly.Portugol['text_length'] = function(block) {
   // String or array length.
   var text = Blockly.Portugol.valueToCode(block, 'VALUE',
       Blockly.Portugol.ORDER_FUNCTION_CALL) || '\'\'';
-  return [text + '.length', Blockly.Portugol.ORDER_MEMBER];
+  return [text + '.tamanho', Blockly.Portugol.ORDER_MEMBER];
 };
 
 Blockly.Portugol['text_isEmpty'] = function(block) {
   // Is the string null or array empty?
   var text = Blockly.Portugol.valueToCode(block, 'VALUE',
       Blockly.Portugol.ORDER_MEMBER) || '\'\'';
-  return ['!' + text + '.length', Blockly.Portugol.ORDER_LOGICAL_NOT];
+  return ['!' + text + '.tamanho', Blockly.Portugol.ORDER_LOGICAL_NOT];
 };
 
 Blockly.Portugol['text_indexOf'] = function(block) {
@@ -138,32 +138,32 @@ Blockly.Portugol['text_charAt'] = function(block) {
       textOrder) || '\'\'';
   switch (where) {
     case 'FIRST':
-      var code = text + '.charAt(0)';
+      var code = text + '.caracEm(0)';
       return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
     case 'LAST':
-      var code = text + '.slice(-1)';
+      var code = text + '.fatia(-1)';
       return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
     case 'FROM_START':
       var at = Blockly.Portugol.getAdjusted(block, 'AT');
       // Adjust index if using one-based indices.
-      var code = text + '.charAt(' + at + ')';
+      var code = text + '.caracEm(' + at + ')';
       return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
     case 'FROM_END':
       var at = Blockly.Portugol.getAdjusted(block, 'AT', 1, true);
-      var code = text + '.slice(' + at + ').charAt(0)';
+      var code = text + '.fatia(' + at + ').caracEm(0)';
       return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
     case 'RANDOM':
       var functionName = Blockly.Portugol.provideFunction_(
           'textRandomLetter',
-          ['function ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
-              '(text) {',
-           '  var x = Math.floor(Math.random() * text.length);',
-           '  return text[x];',
+          ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
+              '(texto) {',
+           '  var x = Mat.piso(Mat.aleatorio() * texto.tamanho);',
+           '  retorne texto[x];',
            '}']);
       var code = functionName + '(' + text + ')';
       return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
   }
-  throw Error('Unhandled option (text_charAt).');
+  throw Error('Opção não tratada (text_charAt).');
 };
 
 /**
