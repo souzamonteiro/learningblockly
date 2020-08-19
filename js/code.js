@@ -206,7 +206,7 @@ function downloadCode2() {
 }
 function exportMaia() {
     var code = Blockly.MaiaScript.workspaceToCode(workspace);
-    localStorage.setItem('maiascript.maia', code);
+    localStorage.setItem('fileData', code);
     localStorage.setItem('editorMode', 'maia');
 
     var win = window.open('http://www.maiastudio.com.br/index.html', '', '');

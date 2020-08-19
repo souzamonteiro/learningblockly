@@ -1,0 +1,42 @@
+{
+    "name": "LearningBlockly",
+    "short_name": "LearningBlockly",
+    "description": "LearningBlockly (The MaiaScript learning environment)\n\nMaiaScript is a programming language aimed at developing adaptable and intelligent applications.",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "white",
+    "dir": "auto",
+    "lang": "ën-US",
+    "start_url": ".",
+    "icons": [
+        {
+            "src": "images/learningblockly-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "images/learningblockly-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "images/learningblockly-48x48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "images/learningblockly-128x128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+        }
+    ],
+    "related_applications": [
+        {
+            "platform": "web"
+        },
+        {
+            "platform": "",
+            "url": ""
+        }
+    ]
+  }
