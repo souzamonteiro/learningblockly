@@ -115,9 +115,8 @@ function clearWorkspace() {
 
 function downloadXml() {
     var code = Blockly.MaiaScript.workspaceToCode(workspace);
-    lang1code.innerHTML = PR.prettyPrintOne(code, 'maiascript');
     
-    var uri = 'data:text/xml;charset=utf-8;base64,' + base64EncodeUnicode(xmlText);
+    var uri = 'data:text/xml;charset=utf-8;base64,' + base64EncodeUnicode(code);
     var downloadLink = document.createElement('a');
 
     downloadLink.href = uri;
