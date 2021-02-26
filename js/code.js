@@ -114,8 +114,9 @@ function clearWorkspace() {
 }
 
 function downloadXml() {
-    var code = Blockly.MaiaScript.workspaceToCode(workspace);
-    
+    var xml = Blockly.Xml.workspaceToDom(workspace);
+    var code = Blockly.Xml.domToPrettyText(xml);
+
     var uri = 'data:text/xml;charset=utf-8;base64,' + base64EncodeUnicode(code);
     var downloadLink = document.createElement('a');
 
