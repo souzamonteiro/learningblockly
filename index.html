@@ -19,7 +19,23 @@
     <script src="js/php_compressed.js"></script>
     <script src="js/portugol_compressed.js"></script>
     <script src="js/python_compressed.js"></script>
-    
+    <script type="text/javascript">
+      Blockly.Blocks['text_crlf'] = {
+        init: function() {
+            this.appendDummyInput()
+                .appendField("CRLF");
+            this.setOutput(true, "String");
+            this.setColour(160);
+            this.setTooltip("CRLF");
+            this.setHelpUrl("");
+        }
+      };
+
+      Blockly.JavaScript['text_crlf'] = function(block) {
+        var code = "'\\r\\n'";
+        return [code, Blockly.JavaScript.ORDER_NONE];
+      };
+    </script>
     <script src="js/google-code-prettify/run_prettify.js"></script>
     <script src="js/google-code-prettify/lang-portugol.js"></script>
     <script src="js/acorn_interpreter.js"></script>
@@ -206,6 +222,7 @@
       </category>
       <category name="%{BKY_CAT_TEXT}" colour="%{BKY_TEXTS_HUE}">
         <block type="text"></block>
+        <block type="text_crlf"></block>
         <block type="text_join"></block>
         <block type="text_append">
           <value name="TEXT">

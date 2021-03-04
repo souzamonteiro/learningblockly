@@ -358,10 +358,3 @@ Blockly.JavaScript['text_replace'] = function(block) {
   var code = functionName + '(' + text + ', ' + from + ', ' + to + ')';
   return [code, Blockly.JavaScript.ORDER_MEMBER];
 };
-
-Blockly.JavaScript['text_reverse'] = function(block) {
-  var text = Blockly.JavaScript.valueToCode(block, 'TEXT',
-      Blockly.JavaScript.ORDER_MEMBER) || '\'\'';
-  var code = text + '.split(\'\').reverse().join(\'\')';
-  return [code, Blockly.JavaScript.ORDER_MEMBER];
-};
