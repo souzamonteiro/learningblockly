@@ -120,7 +120,7 @@ Blockly.MaiaScript['lists_getIndex'] = function(block) {
         var code = list + '.pop()';
         return [code, Blockly.MaiaScript.ORDER_MEMBER];
       } else if (mode == 'REMOVE') {
-        return list + '.pop();\n';
+        return 'core.pop(' + list + ')\n';
       }
       break;
     case ('FROM_START'):

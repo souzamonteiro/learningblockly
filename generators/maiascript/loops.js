@@ -113,8 +113,6 @@ Blockly.MaiaScript['controls_for'] = function(block) {
           variable0 + '_end', Blockly.VARIABLE_CATEGORY_NAME);
       code += endVar + ' = ' + argument1 + '\n';
     }
-    // Determine loop direction at start, in case one of the bounds
-    // changes during loop execution.
     var incVar = Blockly.MaiaScript.variableDB_.getDistinctName(
         variable0 + '_inc', Blockly.VARIABLE_CATEGORY_NAME);
     code += incVar + ' = ';
@@ -123,13 +121,8 @@ Blockly.MaiaScript['controls_for'] = function(block) {
     } else {
       code += 'math.abs(' + increment + ')\n';
     }
-    code += 'if (' + startVar + ' > ' + endVar + ') {\n';
-    code += Blockly.MaiaScript.INDENT + incVar + ' = -' + incVar + '\n';
-    code += '}\n';
     code += 'for (' + variable0 + ' = ' + startVar + '; ' +
-        incVar + ' >= 0 ? ' +
-        variable0 + ' <= ' + endVar + ' : ' +
-        variable0 + ' >= ' + endVar + '; ' +
+        variable0 + ' <= ' + endVar + '; ' +
         variable0 + ' = ' + variable0 + ' + ' + incVar + ') {\n' +
         branch + '}\n';
   }

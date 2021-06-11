@@ -57,7 +57,7 @@ Blockly.MaiaScript['procedures_defreturn'] = function(block) {
     xfix2 = xfix1;
   }
   if (returnValue) {
-    returnValue = Blockly.MaiaScript.INDENT + 'return ' + returnValue + ';\n';
+    returnValue = Blockly.MaiaScript.INDENT + 'return(' + returnValue + ')\n';
   }
   var args = [];
   for (var i = 0; i < block.arguments_.length; i++) {

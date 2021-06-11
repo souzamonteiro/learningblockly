@@ -31,9 +31,33 @@
         }
       };
 
+      Blockly.Dart['text_crlf'] = function(block) {
+        var code = "'\\r\\n'";
+        return [code, Blockly.JavaScript.ORDER_ATOMIC];
+      };
       Blockly.JavaScript['text_crlf'] = function(block) {
         var code = "'\\r\\n'";
         return [code, Blockly.JavaScript.ORDER_NONE];
+      };
+      Blockly.Lua['text_crlf'] = function(block) {
+        var code = "'\\r\\n'";
+        return [code, Blockly.JavaScript.ORDER_ATOMIC];
+      };
+      Blockly.MaiaScript['text_crlf'] = function(block) {
+        var code = '"\\r\\n"';
+        return [code, Blockly.JavaScript.ORDER_ATOMIC];
+      };
+      Blockly.PHP['text_crlf'] = function(block) {
+        var code = "'\\r\\n'";
+        return [code, Blockly.JavaScript.ORDER_ATOMIC];
+      };
+      Blockly.Portugol['text_crlf'] = function(block) {
+        var code = "'\\r\\n'";
+        return [code, Blockly.JavaScript.ORDER_ATOMIC];
+      };
+      Blockly.Python['text_crlf'] = function(block) {
+        var code = "'\\r\\n'";
+        return [code, Blockly.JavaScript.ORDER_ATOMIC];
       };
     </script>
     <script src="js/google-code-prettify/run_prettify.js"></script>

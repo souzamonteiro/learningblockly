@@ -113,24 +113,17 @@ Blockly.Portugol['controls_for'] = function(block) {
           variable0 + '_end', Blockly.VARIABLE_CATEGORY_NAME);
       code += 'var ' + endVar + ' = ' + argument1 + ';\n';
     }
-    // Determine loop direction at start, in case one of the bounds
-    // changes during loop execution.
-    var incVar = Blockly.Portugol.variableDB_.getDistinctName(
-        variable0 + '_inc', Blockly.VARIABLE_CATEGORY_NAME);
-    code += 'var ' + incVar + ' = ';
+    var incVar = Blockly.MaiaScript.variableDB_.getDistinctName(
+      variable0 + '_inc', Blockly.VARIABLE_CATEGORY_NAME);
+    code += incVar + ' = ';
     if (Blockly.isNumber(increment)) {
-      code += Math.abs(increment) + ';\n';
+      code += Math.abs(increment) + '\n';
     } else {
-      code += 'Mat.abs(' + increment + ');\n';
+      code += 'math.abs(' + increment + ')\n';
     }
-    code += 'se (' + startVar + ' > ' + endVar + ') {\n';
-    code += Blockly.Portugol.INDENT + incVar + ' = -' + incVar + ';\n';
-    code += '}\n';
     code += 'para (' + variable0 + ' = ' + startVar + '; ' +
-        incVar + ' >= 0 ? ' +
-        variable0 + ' <= ' + endVar + ' : ' +
-        variable0 + ' >= ' + endVar + '; ' +
-        variable0 + ' += ' + incVar + ') {\n' +
+        variable0 + ' <= ' + endVar + '; ' +
+        variable0 + ' = ' + variable0 + ' + ' + incVar + ') {\n' +
         branch + '}\n';
   }
   return code;

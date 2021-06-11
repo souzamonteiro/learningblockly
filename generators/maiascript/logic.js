@@ -44,7 +44,7 @@ Blockly.MaiaScript['controls_if'] = function(block) {
           Blockly.MaiaScript.injectId(Blockly.MaiaScript.STATEMENT_SUFFIX,
           block), Blockly.MaiaScript.INDENT) + branchCode;
     }
-    code += (n > 0 ? ' else ' : '') +
+    code += (n > 0 ? ' else' : '') +
         'if (' + conditionCode + ') {\n' + branchCode + '}';
     ++n;
   } while (block.getInput('IF' + n));

@@ -84,7 +84,7 @@ Blockly.Portugol['text_join'] = function(block) {
         elements[i] = Blockly.Portugol.valueToCode(block, 'ADD' + i,
             Blockly.Portugol.ORDER_COMMA) || '\'\'';
       }
-      var code = '[' + elements.join(',') + '].join(\'\')';
+      var code = elements.join(' + ');
       return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
   }
 };

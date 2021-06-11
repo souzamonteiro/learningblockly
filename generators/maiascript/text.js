@@ -73,8 +73,8 @@ Blockly.MaiaScript['text_join'] = function(block) {
         elements[i] = Blockly.MaiaScript.valueToCode(block, 'ADD' + i,
             Blockly.MaiaScript.ORDER_COMMA) || '\'\'';
       }
-      var code = '[' + elements.join(',') + '].join(\'\')';
-      return [code, Blockly.MaiaScript.ORDER_FUNCTION_CALL];
+      var code = elements.join(' + ');
+      return [code, Blockly.MaiaScript.ORDER_ADDITION];
   }
 };
 
