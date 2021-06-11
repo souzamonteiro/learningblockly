@@ -83,49 +83,10 @@ Blockly.MaiaScript['controls_for'] = function(block) {
       Blockly.MaiaScript.ORDER_ASSIGNMENT) || '1';
   var branch = Blockly.MaiaScript.statementToCode(block, 'DO');
   branch = Blockly.MaiaScript.addLoopTrap(branch, block);
-  var code;
-  if (Blockly.isNumber(argument0) && Blockly.isNumber(argument1) &&
-      Blockly.isNumber(increment)) {
-    // All arguments are simple numbers.
-    var up = Number(argument0) <= Number(argument1);
-    code = 'for (' + variable0 + ' = ' + argument0 + '; ' +
-        variable0 + (up ? ' <= ' : ' >= ') + argument1 + '; ' +
-        variable0;
-    var step = Math.abs(Number(increment));
-    if (step == 1) {
-      code += up ? ' = ' + variable0 + ' + 1': ' = ' + variable0 + ' - 1';
-    } else {
-      code += (up ? ' = ' + variable0 + ' + ' :  ' = ' + variable0 + ' - ') + step;
-    }
-    code += ') {\n' + branch + '}\n';
-  } else {
-    code = '';
-    // Cache non-trivial values to variables to prevent repeated look-ups.
-    var startVar = argument0;
-    if (!argument0.match(/^\w+$/) && !Blockly.isNumber(argument0)) {
-      startVar = Blockly.MaiaScript.variableDB_.getDistinctName(
-          variable0 + '_start', Blockly.VARIABLE_CATEGORY_NAME);
-      code += startVar + ' = ' + argument0 + '\n';
-    }
-    var endVar = argument1;
-    if (!argument1.match(/^\w+$/) && !Blockly.isNumber(argument1)) {
-      endVar = Blockly.MaiaScript.variableDB_.getDistinctName(
-          variable0 + '_end', Blockly.VARIABLE_CATEGORY_NAME);
-      code += endVar + ' = ' + argument1 + '\n';
-    }
-    var incVar = Blockly.MaiaScript.variableDB_.getDistinctName(
-        variable0 + '_inc', Blockly.VARIABLE_CATEGORY_NAME);
-    code += incVar + ' = ';
-    if (Blockly.isNumber(increment)) {
-      code += Math.abs(increment) + '\n';
-    } else {
-      code += 'math.abs(' + increment + ')\n';
-    }
-    code += 'for (' + variable0 + ' = ' + startVar + '; ' +
-        variable0 + ' <= ' + endVar + '; ' +
-        variable0 + ' = ' + variable0 + ' + ' + incVar + ') {\n' +
-        branch + '}\n';
-  }
+  var code = 'for (' + variable0 + ' = ' + argument0 + '; ' +
+      variable0 + ' <= ' + argument1 + '; ' +
+      variable0 + ' = ' + variable0 + ' + ' + increment + ') {\n' +
+      branch + '}\n';
   return code;
 };
 
