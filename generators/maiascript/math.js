@@ -235,32 +235,24 @@ Blockly.MaiaScript['math_on_list'] = function(block) {
   var list, code;
   switch (func) {
     case 'SUM':
-      list = Blockly.MaiaScript.valueToCode(block, 'LIST',
-          Blockly.MaiaScript.ORDER_MEMBER) || '[]';
-      code = list + '.reduce(function(x, y) {return x + y})';
+      list = Blockly.Portugol.valueToCode(block, 'LIST',
+          Blockly.Portugol.ORDER_COMMA) || '[]';
+      code = 'matrix.sum(' + list + ')';
       break;
     case 'MIN':
-      list = Blockly.MaiaScript.valueToCode(block, 'LIST',
-          Blockly.MaiaScript.ORDER_COMMA) || '[]';
-      code = 'math.min.apply(null, ' + list + ')';
+      list = Blockly.Portugol.valueToCode(block, 'LIST',
+          Blockly.Portugol.ORDER_COMMA) || '[]';
+      code = 'matrix.min(' + list + ')';
       break;
     case 'MAX':
-      list = Blockly.MaiaScript.valueToCode(block, 'LIST',
-          Blockly.MaiaScript.ORDER_COMMA) || '[]';
-      code = 'math.max.apply(null, ' + list + ')';
+      list = Blockly.Portugol.valueToCode(block, 'LIST',
+          Blockly.Portugol.ORDER_COMMA) || '[]';
+      code = 'matrix.max(' + list + ')';
       break;
     case 'AVERAGE':
-      // mathMean([null,null,1,3]) == 2.0.
-      var functionName = Blockly.MaiaScript.provideFunction_(
-          'mathMean',
-          ['function ' + Blockly.MaiaScript.FUNCTION_NAME_PLACEHOLDER_ +
-              '(myList) {',
-            '  return(myList.reduce(function(x, y) {return x + y}) / ' +
-                  'myList.length)',
-            '}']);
-      list = Blockly.MaiaScript.valueToCode(block, 'LIST',
-          Blockly.MaiaScript.ORDER_NONE) || '[]';
-      code = functionName + '(' + list + ')';
+      list = Blockly.Portugol.valueToCode(block, 'LIST',
+          Blockly.Portugol.ORDER_COMMA) || '[]';
+      code = 'matrix.avg(' + list + ')';
       break;
     case 'MEDIAN':
       // mathMedian([null,null,1,3]) == 2.0.

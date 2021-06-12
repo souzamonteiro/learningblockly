@@ -174,7 +174,7 @@ Blockly.Portugol['math_number_property'] = function(block) {
          '  }',
          '  // Falso se n é NaN.',
          '  // E falso se n é divisivel por 2 ou 3.',
-         '  if (isNaN(n) || n <= 1 || n % 1 != 0 || n % 2 == 0 ||' +
+         '  if (ehNehN(n) || n <= 1 || n % 1 != 0 || n % 2 == 0 ||' +
             ' n % 3 == 0) {',
          '    retorne falso;',
          '  }',
@@ -184,7 +184,7 @@ Blockly.Portugol['math_number_property'] = function(block) {
          '      retorne falso;',
          '    }',
          '  }',
-         '  return verdadeiro;',
+         '  retorne verdadeiro;',
          '}']);
     code = functionName + '(' + number_to_check + ')';
     return [code, Blockly.Portugol.ORDER_FUNCTION_CALL];
@@ -237,58 +237,34 @@ Blockly.Portugol['math_on_list'] = function(block) {
     case 'SUM':
       list = Blockly.Portugol.valueToCode(block, 'LIST',
           Blockly.Portugol.ORDER_MEMBER) || '[]';
-      code = list + '.reduza(funcao(x, y) {retorne x + y;})';
+      code = 'Matriz.soma(' + list + ')';
       break;
     case 'MIN':
       list = Blockly.Portugol.valueToCode(block, 'LIST',
           Blockly.Portugol.ORDER_COMMA) || '[]';
-      code = 'Mat.min.aplique(nulo, ' + list + ')';
+      code = 'Matriz.min(' + list + ')';
       break;
     case 'MAX':
       list = Blockly.Portugol.valueToCode(block, 'LIST',
           Blockly.Portugol.ORDER_COMMA) || '[]';
-      code = 'Mat.max.aplique(nulo, ' + list + ')';
+      code = 'Matriz.max(' + list + ')';
       break;
     case 'AVERAGE':
-      // MatMean([null,null,1,3]) == 2.0.
-      var functionName = Blockly.Portugol.provideFunction_(
-          'media',
-          ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
-              '(minhaLista) {',
-            '  retorne minhaLista.reduza(function(x, y) {retorne x + y;}) / ' +
-                  'minhaLista.tamanho;',
-            '}']);
       list = Blockly.Portugol.valueToCode(block, 'LIST',
-          Blockly.Portugol.ORDER_NONE) || '[]';
-      code = functionName + '(' + list + ')';
+          Blockly.Portugol.ORDER_COMMA) || '[]';
+      code = 'Matriz.media(' + list + ')';
       break;
     case 'MEDIAN':
-      // MatMedian([null,null,1,3]) == 2.0.
-      var functionName = Blockly.Portugol.provideFunction_(
-          'mediana',
-          ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
-              '(minhaLista) {',
-            '  var listaLocal = minhaLista.filter(function (x) ' +
-              '{retorne tipode x == \'numero\';});',
-            '  se (!listaLocal.length) retorne null;',
-            '  listaLocal.sort(function(a, b) {retorne b - a;});',
-            '  if (localList.length % 2 == 0) {',
-            '    retorne (listaLocal[listaLocal.tamanho / 2 - 1] + ' +
-              'listaLocal[listaLocal.length / 2]) / 2;',
-            '  } senao {',
-            '    retorne listaLocal[(listaLocal.tamanho - 1) / 2];',
-            '  }',
-            '}']);
       list = Blockly.Portugol.valueToCode(block, 'LIST',
-          Blockly.Portugol.ORDER_NONE) || '[]';
-      code = functionName + '(' + list + ')';
+          Blockly.Portugol.ORDER_COMMA) || '[]';
+      code = 'Matriz.mediana(' + list + ')';
       break;
     case 'MODE':
       // As a list of numbers can contain more than one mode,
       // the returned result is provided as an array.
       // Mode of [3, 'x', 'x', 1, 1, 2, '3'] -> ['x', 1].
       var functionName = Blockly.Portugol.provideFunction_(
-          'modos',
+          'moda',
           ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
               '(valores) {',
             '  var modos = [];',
@@ -323,23 +299,9 @@ Blockly.Portugol['math_on_list'] = function(block) {
       code = functionName + '(' + list + ')';
       break;
     case 'STD_DEV':
-      var functionName = Blockly.Portugol.provideFunction_(
-          'desvioPadrao',
-          ['funcao ' + Blockly.Portugol.FUNCTION_NAME_PLACEHOLDER_ +
-              '(numeros) {',
-            '  var n = numeros.tamanho;',
-            '  se (!n) retorne nulo;',
-            '  var media = numeros.reduza(funcao(x, y) {retorne x + y;}) / n;',
-            '  var variancia = 0;',
-            '  para (var j = 0; j < n; j++) {',
-            '    variancia += Mat.potencia(numeros[j] - media, 2);',
-            '  }',
-            '  variancia = variancia / n;',
-            '  retorne Mat.raiz(variancia);',
-            '}']);
       list = Blockly.Portugol.valueToCode(block, 'LIST',
-          Blockly.Portugol.ORDER_NONE) || '[]';
-      code = functionName + '(' + list + ')';
+          Blockly.Portugol.ORDER_COMMA) || '[]';
+      code = 'Matriz.desvio(' + list + ')';
       break;
     case 'RANDOM':
       var functionName = Blockly.Portugol.provideFunction_(
